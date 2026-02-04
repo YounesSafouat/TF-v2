@@ -18,5 +18,25 @@
     "id": "fraterie",
     "title": "Naturalisation par fratrie",
     "description": "Documents liés à la naturalisation par fratrie"
+  },
+  {
+    "id": "ascendant",
+    "title": "Ascendant",
+    "description": "Documents liés à la naturalisation par ascendant"
+  },
+  {
+    "id": "aes",
+    "title": "AES",
+    "description": "Documents liés à l'admission exceptionnelle au séjour et renouvellement AES"
+  },
+  {
+    "id": "titre_sejour_plein_droit",
+    "title": "Titre de séjour de Plein droit",
+    "description": "Documents liés aux titres de séjour de plein droit"
+  },
+  {
+    "id": "renouvellement",
+    "title": "Renouvellement",
+    "description": "Documents liés au renouvellement de titres de séjour"
   }
 ]
