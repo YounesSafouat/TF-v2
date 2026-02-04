@@ -1,0 +1,14 @@
+{
+  "type": "crm-card",
+  "data": {
+    "title": "Documents",
+    "uid": "get_started_card",
+    "location": "crm.record.tab",
+    "module": {
+      "file": "DocumentList.tsx"
+    },
+    "objectTypes": [
+      { "name": "p_dossier_juridique" }
+    ]
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "appFunctions": {
+    "getDocumentValues": {
+      "file": "getDocumentValues.js",
+      "secrets": ["hubspot_api_key", "dossier_j_ID"]
+    },
+    "updateDocuments": {
+      "file": "updateDocuments.js",
+      "secrets": ["hubspot_api_key", "dossier_j_ID"]
+    },
+    "updateCompletionStatus": {
+      "file": "updateCompletionStatus.js",
+      "secrets": ["hubspot_api_key", "dossier_j_ID"]
+    }
+  }
+}

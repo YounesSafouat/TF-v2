@@ -1,0 +1,9 @@
+
+
+# HubSpot config file
+hubspot.config.yml
+/node_modules
+package-lock.json
+package.json
+/DocumentList/src/app/app.functions/node_modules
+/DocumentList/src/app/extensions/node_modules

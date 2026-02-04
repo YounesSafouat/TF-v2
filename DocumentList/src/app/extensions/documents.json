@@ -1,0 +1,3659 @@
+[
+  {
+    "id": "timbre_fiscal_de_55",
+    "name": "Timbre fiscal de 55 €",
+    "requiredProperty": "timbre_fiscal_de_55_required",
+    "providedProperty": "timbre_fiscal_de_55_provided",
+    "tab": [
+      "decret",
+      "fraterie"
+    ],
+    "order": [
+      1,
+      2
+    ],
+    "conditions": [
+      {
+        "property": "sous_categorie",
+        "operator": "equals",
+        "value": "Naturalisation par décret"
+      },
+      {
+        "property": "sous_categorie",
+        "operator": "equals",
+        "value": "Naturalisation par fratrie"
+      }
+    ]
+  },
+  {
+    "id": "document_justifiant_de_la_date_et_du_lieu_de_naissance_de_votre_pre_et_votre_mre_et_de_leur_mariage_sils_sont_maris",
+    "name": "Document justifiant de la date et du lieu de naissance de votre père et votre mère et de leur mariage s'ils sont mariés",
+    "requiredProperty": "document_justifiant_de_la_date_et_du_lieu_de_naissance_de_votre_pere_et_votre_mere_et_de_l_required",
+    "providedProperty": "document_justifiant_de_la_date_et_du_lieu_de_naissance_de_votre_pere_et_votre_mere_et_de_l_provided",
+    "tab": "decret",
+    "order": 2,
+    "conditions": [
+      {
+        "property": "sous_categorie",
+        "operator": "equals",
+        "value": "Naturalisation par décret"
+      }
+    ]
+  },
+  {
+    "id": "document_justifiant_de_la_date_et_du_lieu_de_naissance_de_votre_pre_et_votre_mre_et_de_leur_mariage_sils_sont_maris_fraterie",
+    "name": "Document justifiant de la date et du lieu de naissance de votre père et votre mère et de leur mariage s'ils sont mariés",
+    "requiredProperty": "document_justifiant_de_la_date_et_du_lieu_de_naissance_de_votre_pere_et_votre_mere_et_de_l_required",
+    "providedProperty": "document_justifiant_de_la_date_et_du_lieu_de_naissance_de_votre_pere_et_votre_mere_et_de_l_provided",
+    "tab": "fraterie",
+    "order": 13,
+    "conditions": [
+      {
+        "property": "sous_categorie",
+        "operator": "equals",
+        "value": "Naturalisation par fratrie"
+      },
+      {
+        "property": "avez_vous_un_statut_refugie_ou_apatride__",
+        "operator": "equals",
+        "value": "false"
+      }
+    ]
+  },
+  {
+    "id": "copie_rectoverso_du_titre_de_sjour_en_cours_de_validit",
+    "name": "Copie recto-verso du titre de séjour en cours de validité",
+    "requiredProperty": "copie_rectoverso_du_titre_de_sejour_en_cours_de_validite_required",
+    "providedProperty": "copie_rectoverso_du_titre_de_sejour_en_cours_de_validite_provided",
+    "tab": [
+      "decret",
+      "fraterie"
+    ],
+    "order": [
+      3,
+      4
+    ],
+    "conditions": [
+      {
+        "property": "sous_categorie",
+        "operator": "equals",
+        "value": "Naturalisation par décret"
+      },
+      {
+        "property": "sous_categorie",
+        "operator": "equals",
+        "value": "Naturalisation par fratrie"
+      }
+    ]
+  },
+  {
+    "id": "copie_intgrale_de_toutes_les_pages_du_passeport",
+    "name": "Copie intégrale de toutes les pages du passeport",
+    "requiredProperty": "copie_integrale_de_toutes_les_pages_du_passeport_required",
+    "providedProperty": "copie_integrale_de_toutes_les_pages_du_passeport_provided",
+    "tab": [
+      "decret"
+    ],
+    "order": [
+      4
+    ],
+    "conditions": [
+      {
+        "property": "sous_categorie",
+        "operator": "equals",
+        "value": "Naturalisation par décret"
+      }
+    ]
+  },
+  {
+    "id": "original_et_copie_dun_diplme_brevet_ou_test_de_franais_niveau_b1tcf_ou_delf_ou_dispense_de_moins_de_2_ans",
+    "name": "Original et copie d'un diplôme (>= Brevet) ou test de français niveau B1(TCF ou DELF) ou dispense de moins de 2 ans",
+    "requiredProperty": "original_et_copie_dun_diplome_brevet_ou_test_de_francais_niveau_b1tcf_ou_delf_ou_dispense__required",
+    "providedProperty": "original_et_copie_dun_diplome_brevet_ou_test_de_francais_niveau_b1tcf_ou_delf_ou_dispense__provided",
+    "tab": [
+      "decret",
+      "naturalisation_mariage"
+    ],
+    "order": [
+      5,
+      7
+    ],
+    "conditions": [
+      {
+        "property": "sous_categorie",
+        "operator": "equals",
+        "value": "Naturalisation par décret"
+      },
+      {
+        "property": "sous_categorie",
+        "operator": "equals",
+        "value": "Naturalisation par mariage"
+      }
+    ]
+  },
+  {
+    "id": "bordereau_de_situation_fiscale_modle_p237_original_et_rcent",
+    "name": "Bordereau de situation fiscale (modèle P237) original et récent",
+    "requiredProperty": "bordereau_de_situation_fiscale_modele_p237_original_et_recent_required",
+    "providedProperty": "bordereau_de_situation_fiscale_modele_p237_original_et_recent_provided",
+    "tab": [
+      "decret"
+    ],
+    "order": [
+      6
+    ],
+    "conditions": [
+      {
+        "property": "sous_categorie",
+        "operator": "equals",
+        "value": "Naturalisation par décret"
+      }
+    ]
+  },
+  {
+    "id": "copies_de_toutes_les_pages_des_3_derniers_avis_dimposition_ou_de_nonimposition",
+    "name": "Copies de toutes les pages des 3 derniers avis d'imposition ou de non-imposition.",
+    "requiredProperty": "copies_de_toutes_les_pages_des_3_derniers_avis_dimposition_ou_de_nonimposition_required",
+    "providedProperty": "copies_de_toutes_les_pages_des_3_derniers_avis_dimposition_ou_de_nonimposition_provided",
+    "tab": [
+      "decret"
+    ],
+    "order": [
+      7
+    ],
+    "conditions": [
+      {
+        "property": "sous_categorie",
+        "operator": "equals",
+        "value": "Naturalisation par décret"
+      }
+    ]
+  },
+  {
+    "id": "casier_judiciaire_du_pays_dorigine_traduit_via_traducteur_asserment",
+    "name": "Casier judiciaire du pays d'origine (traduit via traducteur assermenté)",
+    "requiredProperty": "casier_judiciaire_du_pays_dorigine_traduit_via_traducteur_assermente_required",
+    "providedProperty": "casier_judiciaire_du_pays_dorigine_traduit_via_traducteur_assermente_provided",
+    "tab": [
+      "decret"
+    ],
+    "order": [
+      9
+    ],
+    "conditions": [
+      {
+        "property": "avez_vous_un_statut_refugie_ou_apatride__",
+        "operator": "equals",
+        "value": "false"
+      },
+      {
+        "property": "sous_categorie",
+        "operator": "equals",
+        "value": "Naturalisation par décret"
+      }
+    ]
+  },
+  {
+    "id": "copie_intgrale_en_original_de_votre_acte_de_naissance",
+    "name": "Copie intégrale en original de votre acte de naissance.",
+    "requiredProperty": "copie_integrale_en_original_de_votre_acte_de_naissance_required",
+    "providedProperty": "copie_integrale_en_original_de_votre_acte_de_naissance_provided",
+    "tab": [
+      "decret"
+    ],
+    "order": [
+      10
+    ],
+    "conditions": [
+      {
+        "property": "avez_vous_un_statut_refugie_ou_apatride__",
+        "operator": "equals",
+        "value": "false"
+      },
+      {
+        "property": "sous_categorie",
+        "operator": "equals",
+        "value": "Naturalisation par décret"
+      }
+    ]
+  },
+  {
+    "id": "contrat_de_travail_en_cours_mentionnant_le_montant_de_la_rmunration_la_date_de_prise_de_fonction_et_lemploi_occup",
+    "name": "Contrat de travail en cours mentionnant le montant de la rémunération, la date de prise de fonction et l'emploi occupé",
+    "requiredProperty": "contrat_de_travail_en_cours_mentionnant_le_montant_de_la_remuneration_la_date_de_prise_de__required",
+    "providedProperty": "contrat_de_travail_en_cours_mentionnant_le_montant_de_la_remuneration_la_date_de_prise_de__provided",
+    "tab": [
+      "decret"
+    ],
+    "order": [
+      11
+    ],
+    "conditions": [
+      {
+        "property": "quelle_est_votre_situation_professionnel__",
+        "operator": "in",
+        "value": "Salarié(e)"
+      },
+      {
+        "property": "sous_categorie",
+        "operator": "equals",
+        "value": "Naturalisation par décret"
+      }
+    ]
+  },
+  {
+    "id": "les_3_derniers_bulletins_de_salaire",
+    "name": "Les 3 derniers bulletins de salaire",
+    "requiredProperty": "les_3_derniers_bulletins_de_salaire_required",
+    "providedProperty": "les_3_derniers_bulletins_de_salaire_provided",
+    "tab": [
+      "decret"
+    ],
+    "order": [
+      12
+    ],
+    "conditions": [
+      {
+        "property": "quelle_est_votre_situation_professionnel__",
+        "operator": "in",
+        "value": "Salarié(e)"
+      },
+      {
+        "property": "sous_categorie",
+        "operator": "equals",
+        "value": "Naturalisation par décret"
+      }
+    ]
+  },
+  {
+    "id": "certificats_originaux_de_lofpra_tenant_lieu_dtat_civil_3_mois",
+    "name": "Certificats originaux de l'OFPRA (tenant lieu d'état civil, < 3 mois)",
+    "requiredProperty": "certificats_originaux_de_lofpra_tenant_lieu_detat_civil_3_mois_required",
+    "providedProperty": "certificats_originaux_de_lofpra_tenant_lieu_detat_civil_3_mois_provided",
+    "tab": [
+      "decret",
+      "naturalisation_mariage",
+      "fraterie"
+    ],
+    "order": [
+      12,
+      12,
+      10
+    ],
+    "conditions": [
+      {
+        "property": "avez_vous_un_statut_refugie_ou_apatride__",
+        "operator": "equals",
+        "value": "true"
+      },
+      {
+        "property": "sous_categorie",
+        "operator": "equals",
+        "value": "Naturalisation par mariage"
+      },
+      {
+        "property": "sous_categorie",
+        "operator": "equals",
+        "value": "Naturalisation par décret"
+      },
+      {
+        "property": "sous_categorie",
+        "operator": "equals",
+        "value": "Naturalisation par fratrie"
+      }
+    ]
+  },
+  {
+    "id": "les_certificats_de_travail_concernant_si_possible_les_3_dernires_annes_ou_le_relev_de_carrire",
+    "name": "Les certificats de travail, concernant si possible les 3 dernières années ou le Relevé de Carrière",
+    "requiredProperty": "les_certificats_de_travail_concernant_si_possible_les_3_dernieres_annees_ou_le_releve_de_c_required",
+    "providedProperty": "les_certificats_de_travail_concernant_si_possible_les_3_dernieres_annees_ou_le_releve_de_c_provided",
+    "tab": [
+      "decret"
+    ],
+    "order": [
+      13
+    ],
+    "conditions": [
+      {
+        "property": "quelle_est_votre_situation_professionnel__",
+        "operator": "in",
+        "value": "Salarié(e)"
+      },
+      {
+        "property": "sous_categorie",
+        "operator": "equals",
+        "value": "Naturalisation par décret"
+      }
+    ]
+  },
+  {
+    "id": "fiches_de_paie_de_novembre_dcembre_des_trois_dernires_annes_si_possible",
+    "name": "Fiches de paie de novembre & décembre des trois dernières années (si possible).",
+    "requiredProperty": "fiches_de_paie_de_novembre_decembre_des_trois_dernieres_annees_si_possible_required",
+    "providedProperty": "fiches_de_paie_de_novembre_decembre_des_trois_dernieres_annees_si_possible_provided",
+    "tab": [
+      "decret"
+    ],
+    "order": [
+      14
+    ],
+    "conditions": [
+      {
+        "property": "quelle_est_votre_situation_professionnel__",
+        "operator": "in",
+        "value": "Salarié(e)"
+      },
+      {
+        "property": "sous_categorie",
+        "operator": "equals",
+        "value": "Naturalisation par décret"
+      }
+    ]
+  },
+  {
+    "id": "attestation_de_droits_lallocation_daide_au_retour_lemploi",
+    "name": "Attestation de droits à l'allocation d'aide au retour à l'emploi",
+    "requiredProperty": "attestation_de_droits_a_lallocation_daide_au_retour_a_lemploi_required",
+    "providedProperty": "attestation_de_droits_a_lallocation_daide_au_retour_a_lemploi_provided",
+    "tab": [
+      "decret"
+    ],
+    "order": [
+      15
+    ],
+    "conditions": [
+      {
+        "property": "quelle_est_votre_situation_professionnel__",
+        "operator": "in",
+        "value": "Sans emploi (inscrit(e) ou non à Pôle emploi)"
+      },
+      {
+        "property": "sous_categorie",
+        "operator": "equals",
+        "value": "Naturalisation par décret"
+      }
+    ]
+  },
+  {
+    "id": "les_3_derniers_bordereaux_de_versement_des_indemnits",
+    "name": "Les 3 derniers bordereaux de versement des indemnités",
+    "requiredProperty": "les_3_derniers_bordereaux_de_versement_des_indemnites_required",
+    "providedProperty": "les_3_derniers_bordereaux_de_versement_des_indemnites_provided",
+    "tab": [
+      "decret"
+    ],
+    "order": [
+      16
+    ],
+    "conditions": [
+      {
+        "property": "quelle_est_votre_situation_professionnel__",
+        "operator": "in",
+        "value": "Sans emploi (inscrit(e) ou non à Pôle emploi)"
+      },
+      {
+        "property": "sous_categorie",
+        "operator": "equals",
+        "value": "Naturalisation par décret"
+      }
+    ]
+  },
+  {
+    "id": "relev_de_carrire",
+    "name": "Relevé de carrière.",
+    "requiredProperty": "releve_de_carriere_required",
+    "providedProperty": "releve_de_carriere_provided",
+    "tab": [
+      "decret"
+    ],
+    "order": [
+      17
+    ],
+    "conditions": [
+      {
+        "property": "quelle_est_votre_situation_professionnel__",
+        "operator": "in",
+        "value": "Sans emploi (inscrit(e) ou non à Pôle emploi)"
+      },
+      {
+        "property": "sous_categorie",
+        "operator": "equals",
+        "value": "Naturalisation par décret"
+      }
+    ]
+  },
+  {
+    "id": "autres_justificatifs_de_votre_activite_professionnelle_des_3_dernieres_annees_ou_le_releve_de_carriere",
+    "name": "Autres justificatifs de votre activité professionnelle des 3 dernières années ou le Relevé de Carrière",
+    "requiredProperty": "autres_justificatifs_de_votre_activite_professionnelle_des_3_dernieres_annees_ou_le_releve_required",
+    "providedProperty": "autres_justificatifs_de_votre_activite_professionnelle_des_3_dernieres_annees_ou_le_releve_provided",
+    "tab": [
+      "decret"
+    ],
+    "order": [
+      18
+    ],
+    "conditions": [
+      {
+        "property": "quelle_est_votre_situation_professionnel__",
+        "operator": "in",
+        "value": "Sans emploi (inscrit(e) ou non à Pôle emploi)"
+      },
+      {
+        "property": "sous_categorie",
+        "operator": "equals",
+        "value": "Naturalisation par décret"
+      }
+    ]
+  },
+  {
+    "id": "le_dernier_bordereau_de_versement_retraite",
+    "name": "Le dernier bordereau de versement retraite",
+    "requiredProperty": "le_dernier_bordereau_de_versement_retraite_required",
+    "providedProperty": "le_dernier_bordereau_de_versement_retraite_provided",
+    "tab": [
+      "decret"
+    ],
+    "order": [
+      19
+    ],
+    "conditions": [
+      {
+        "property": "quelle_est_votre_situation_professionnel__",
+        "operator": "in",
+        "value": "Retraité(e)"
+      },
+      {
+        "property": "sous_categorie",
+        "operator": "equals",
+        "value": "Naturalisation par décret"
+      }
+    ]
+  },
+  {
+    "id": "titre_de_pension_ou_decret_justificatif_de_versement_de_retraite_avec_mention_du_montant_peru_pension",
+    "name": "Titre de pension (ou decret justificatif de versement de retraite) avec mention du montant perçu pension",
+    "requiredProperty": "titre_de_pension_ou_autre_justificatif_de_versement_de_retraite_avec_mention_du_montant_pe_required",
+    "providedProperty": "titre_de_pension_ou_autre_justificatif_de_versement_de_retraite_avec_mention_du_montant_pe_provided",
+    "tab": [
+      "decret"
+    ],
+    "order": [
+      20
+    ],
+    "conditions": [
+      {
+        "property": "quelle_est_votre_situation_professionnel__",
+        "operator": "in",
+        "value": "Retraité(e)"
+      },
+      {
+        "property": "sous_categorie",
+        "operator": "equals",
+        "value": "Naturalisation par décret"
+      }
+    ]
+  },
+  {
+    "id": "attestation_de_proprit_acte_de_proprit_du_notaire",
+    "name": "Attestation de propriété (acte de propriété du notaire)",
+    "requiredProperty": "attestation_de_propriete_acte_de_propriete_du_notaire_required",
+    "providedProperty": "attestation_de_propriete_acte_de_propriete_du_notaire_provided",
+    "tab": [
+      "decret",
+      "naturalisation_mariage",
+      "fraterie"
+    ],
+    "order": [
+      20,
+      20,
+      66
+    ],
+    "conditions": [
+      {
+        "property": "domicile__",
+        "operator": "equals",
+        "value": "Propriétaire"
+      },
+      {
+        "property": "sous_categorie",
+        "operator": "equals",
+        "value": "Naturalisation par mariage"
+      },
+      {
+        "property": "sous_categorie",
+        "operator": "equals",
+        "value": "Naturalisation par décret"
+      },
+      {
+        "property": "sous_categorie",
+        "operator": "equals",
+        "value": "Naturalisation par fratrie"
+      }
+    ]
+  },
+  {
+    "id": "bilan_financier_synthtique_des_3_derniers_exercices_ou_le_relev_de_carrire",
+    "name": "Bilan financier synthétique des 3 derniers exercices ou le Relevé de Carrière",
+    "requiredProperty": "bilan_financier_synthetique_des_3_derniers_exercices_ou_le_releve_de_carriere_required",
+    "providedProperty": "bilan_financier_synthetique_des_3_derniers_exercices_ou_le_releve_de_carriere_provided",
+    "tab": [
+      "decret"
+    ],
+    "order": [
+      21
+    ],
+    "conditions": [
+      {
+        "property": "quelle_est_votre_situation_professionnel__",
+        "operator": "in",
+        "value": "Artisan / commerçant / gérant / exploitant agricole"
+      },
+      {
+        "property": "sous_categorie",
+        "operator": "equals",
+        "value": "Naturalisation par décret"
+      }
+    ]
+  },
+  {
+    "id": "justificatif_de_domicile_datant_de_moins_de_6_mois_3_dernires_factures_de_gaz_lectricit_ou_tlphone_fixe",
+    "name": "Justificatif de domicile datant de moins de 6 mois (3 dernières factures de gaz, électricité ou téléphone fixe)",
+    "requiredProperty": "justificatif_de_domicile_datant_de_moins_de_6_mois_3_dernieres_factures_de_gaz_electricite_required",
+    "providedProperty": "justificatif_de_domicile_datant_de_moins_de_6_mois_3_dernieres_factures_de_gaz_electricite_provided",
+    "tab": [
+      "decret",
+      "naturalisation_mariage",
+      "fraterie"
+    ],
+    "order": [
+      21,
+      21,
+      67
+    ],
+    "conditions": [
+      {
+        "property": "domicile__",
+        "operator": "equals",
+        "value": "Propriétaire"
+      },
+      {
+        "property": "sous_categorie",
+        "operator": "equals",
+        "value": "Naturalisation par mariage"
+      },
+      {
+        "property": "sous_categorie",
+        "operator": "equals",
+        "value": "Naturalisation par décret"
+      },
+      {
+        "property": "sous_categorie",
+        "operator": "equals",
+        "value": "Naturalisation par fratrie"
+      }
+    ]
+  },
+  {
+    "id": "extrait_dimmatriculation_au_registre_du_commerce_ou_des_mtiers",
+    "name": "Extrait d’immatriculation au registre du commerce ou des métiers",
+    "requiredProperty": "extrait_dimmatriculation_au_registre_du_commerce_ou_des_metiers_required",
+    "providedProperty": "extrait_dimmatriculation_au_registre_du_commerce_ou_des_metiers_provided",
+    "tab": [
+      "decret"
+    ],
+    "order": [
+      22
+    ],
+    "conditions": [
+      {
+        "property": "quelle_est_votre_situation_professionnel__",
+        "operator": "in",
+        "value": "Artisan / commerçant / gérant / exploitant agricole"
+      },
+      {
+        "property": "sous_categorie",
+        "operator": "equals",
+        "value": "Naturalisation par décret"
+      }
+    ]
+  },
+  {
+    "id": "justificatif_de_domicile_datant_de_moins_de_6_mois",
+    "name": "Justificatif de domicile datant de moins de 6 mois",
+    "requiredProperty": "justificatif_de_domicile_datant_de_moins_de_6_mois_required",
+    "providedProperty": "justificatif_de_domicile_datant_de_moins_de_6_mois_provided",
+    "tab": [
+      "decret",
+      "naturalisation_mariage",
+      "fraterie"
+    ],
+    "order": [
+      22,
+      22,
+      73
+    ],
+    "conditions": [
+      {
+        "property": "domicile__",
+        "operator": "equals",
+        "value": "Locataire"
+      },
+      {
+        "property": "sous_categorie",
+        "operator": "equals",
+        "value": "Naturalisation par mariage"
+      },
+      {
+        "property": "sous_categorie",
+        "operator": "equals",
+        "value": "Naturalisation par décret"
+      },
+      {
+        "property": "sous_categorie",
+        "operator": "equals",
+        "value": "Naturalisation par fratrie"
+      }
+    ]
+  },
+  {
+    "id": "statuts_de_la_socit_pour_les_dirigeants_ou_associs",
+    "name": "Statuts de la société, pour les dirigeants ou associés",
+    "requiredProperty": "statuts_de_la_societe_pour_les_dirigeants_ou_associes_required",
+    "providedProperty": "statuts_de_la_societe_pour_les_dirigeants_ou_associes_provided",
+    "tab": [
+      "decret"
+    ],
+    "order": [
+      23
+    ],
+    "conditions": [
+      {
+        "property": "quelle_est_votre_situation_professionnel__",
+        "operator": "in",
+        "value": "Artisan / commerçant / gérant / exploitant agricole"
+      },
+      {
+        "property": "sous_categorie",
+        "operator": "equals",
+        "value": "Naturalisation par décret"
+      }
+    ]
+  },
+  {
+    "id": "trois_dernires_quittances_de_loyer",
+    "name": "Trois dernières quittances de loyer",
+    "requiredProperty": "trois_dernieres_quittances_de_loyer_required",
+    "providedProperty": "trois_dernieres_quittances_de_loyer_provided",
+    "tab": [
+      "decret",
+      "naturalisation_mariage",
+      "fraterie"
+    ],
+    "order": [
+      23,
+      23,
+      69
+    ],
+    "conditions": [
+      {
+        "property": "domicile__",
+        "operator": "equals",
+        "value": "Locataire"
+      },
+      {
+        "property": "sous_categorie",
+        "operator": "equals",
+        "value": "Naturalisation par mariage"
+      },
+      {
+        "property": "sous_categorie",
+        "operator": "equals",
+        "value": "Naturalisation par décret"
+      },
+      {
+        "property": "sous_categorie",
+        "operator": "equals",
+        "value": "Naturalisation par fratrie"
+      }
+    ]
+  },
+  {
+    "id": "certificat_de_scolarit_ou_carte_dinscription_dans_letablissement_denseignement_suprieur_pour_lanne_en_cours",
+    "name": "Certificat de scolarité ou carte d’inscription dans l’etablissement d’enseignement supérieur pour l’année en cours",
+    "requiredProperty": "certificat_de_scolarite_ou_carte_dinscription_dans_letablissement_denseignement_superieur__required",
+    "providedProperty": "certificat_de_scolarite_ou_carte_dinscription_dans_letablissement_denseignement_superieur__provided",
+    "tab": [
+      "decret"
+    ],
+    "order": [
+      24
+    ],
+    "conditions": [
+      {
+        "property": "quelle_est_votre_situation_professionnel__",
+        "operator": "in",
+        "value": "Lycéen(ne) / Étudiant(e)"
+      },
+      {
+        "property": "quelle_est_votre_situation_professionnel__",
+        "operator": "in",
+        "value": "Étudiant(e)"
+      },
+      {
+        "property": "sous_categorie",
+        "operator": "equals",
+        "value": "Naturalisation par décret"
+      }
+    ]
+  },
+  {
+    "id": "contrat_de_location",
+    "name": "Contrat de location",
+    "requiredProperty": "contrat_de_location_required",
+    "providedProperty": "contrat_de_location_provided",
+    "tab": [
+      "decret",
+      "naturalisation_mariage",
+      "fraterie"
+    ],
+    "order": [
+      24,
+      24,
+      70
+    ],
+    "conditions": [
+      {
+        "property": "domicile__",
+        "operator": "equals",
+        "value": "Locataire"
+      },
+      {
+        "property": "sous_categorie",
+        "operator": "equals",
+        "value": "Naturalisation par mariage"
+      },
+      {
+        "property": "sous_categorie",
+        "operator": "equals",
+        "value": "Naturalisation par décret"
+      },
+      {
+        "property": "sous_categorie",
+        "operator": "equals",
+        "value": "Naturalisation par fratrie"
+      }
+    ]
+  },
+  {
+    "id": "diplme_prcdents_prendre_si_obtenu",
+    "name": "Diplôme précédents à prendre (si obtenu)",
+    "requiredProperty": "diplome_precedents_a_prendre_si_obtenu_required",
+    "providedProperty": "diplome_precedents_a_prendre_si_obtenu_provided",
+    "tab": [
+      "decret"
+    ],
+    "order": [
+      25
+    ],
+    "conditions": [
+      {
+        "property": "quelle_est_votre_situation_professionnel__",
+        "operator": "in",
+        "value": "Lycéen(ne) / Étudiant(e)"
+      },
+      {
+        "property": "sous_categorie",
+        "operator": "equals",
+        "value": "Naturalisation par décret"
+      }
+    ]
+  },
+  {
+    "id": "attestation_dhbergement",
+    "name": "Attestation d'hébergement",
+    "requiredProperty": "attestation_dhebergement_required",
+    "providedProperty": "attestation_dhebergement_provided",
+    "tab": [
+      "decret",
+      "naturalisation_mariage",
+      "fraterie"
+    ],
+    "order": [
+      25,
+      25,
+      71
+    ],
+    "conditions": [
+      {
+        "property": "domicile__",
+        "operator": "equals",
+        "value": "Je suis hébergé à l'hôtel."
+      },
+      {
+        "property": "sous_categorie",
+        "operator": "equals",
+        "value": "Naturalisation par mariage"
+      },
+      {
+        "property": "sous_categorie",
+        "operator": "equals",
+        "value": "Naturalisation par décret"
+      },
+      {
+        "property": "sous_categorie",
+        "operator": "equals",
+        "value": "Naturalisation par fratrie"
+      }
+    ]
+  },
+  {
+    "id": "pice_didentit_de_lhbergent",
+    "name": "Pièce d'identité de l'hébergent",
+    "requiredProperty": "piece_didentite_de_lhebergent_required",
+    "providedProperty": "piece_didentite_de_lhebergent_provided",
+    "tab": [
+      "decret",
+      "naturalisation_mariage"
+    ],
+    "order": [
+      26,
+      26
+    ],
+    "conditions": [
+      {
+        "property": "domicile__",
+        "operator": "equals",
+        "value": "Je suis hébergé à l'hôtel."
+      },
+      {
+        "property": "sous_categorie",
+        "operator": "equals",
+        "value": "Naturalisation par mariage"
+      },
+      {
+        "property": "sous_categorie",
+        "operator": "equals",
+        "value": "Naturalisation par décret"
+      }
+    ]
+  },
+  {
+    "id": "inscription_lordre",
+    "name": "Inscription à l'ordre",
+    "requiredProperty": "inscription_a_lordre_required",
+    "providedProperty": "inscription_a_lordre_provided",
+    "tab": [
+      "decret"
+    ],
+    "order": [
+      27
+    ],
+    "conditions": [
+      {
+        "property": "quelle_est_votre_situation_professionnel__",
+        "operator": "in",
+        "value": "Profession libérale"
+      },
+      {
+        "property": "sous_categorie",
+        "operator": "equals",
+        "value": "Naturalisation par décret"
+      }
+    ]
+  },
+  {
+    "id": "3_dernires_dclarations_dactivit_trimestrielles",
+    "name": "3 dernières déclarations d'activité trimestrielles",
+    "requiredProperty": "doc_3_dernieres_declarations_dactivite_trimestrielles_required",
+    "providedProperty": "doc_3_dernieres_declarations_dactivite_trimestrielles_provided",
+    "tab": [
+      "decret"
+    ],
+    "order": [
+      28
+    ],
+    "conditions": [
+      {
+        "property": "quelle_est_votre_situation_professionnel__",
+        "operator": "in",
+        "value": "Profession libérale"
+      },
+      {
+        "property": "sous_categorie",
+        "operator": "equals",
+        "value": "Naturalisation par décret"
+      }
+    ]
+  },
+  {
+    "id": "attestation_fiscale_des_trois_dernires_annes",
+    "name": "Attestation fiscale des trois dernières années.",
+    "requiredProperty": "attestation_fiscale_des_trois_dernieres_annees_required",
+    "providedProperty": "attestation_fiscale_des_trois_dernieres_annees_provided",
+    "tab": [
+      "decret"
+    ],
+    "order": [
+      29
+    ],
+    "conditions": [
+      {
+        "property": "quelle_est_votre_situation_professionnel__",
+        "operator": "in",
+        "value": "Profession libérale"
+      },
+      {
+        "property": "sous_categorie",
+        "operator": "equals",
+        "value": "Naturalisation par décret"
+      }
+    ]
+  },
+  {
+    "id": "contrat_alternance_ou_de_stage_3_dernires_fiches_de_paie",
+    "name": "Contrat alternance ou de stage & 3 dernières fiches de paie",
+    "requiredProperty": "contrat_alternance_ou_de_stage_3_dernieres_fiches_de_paie_required",
+    "providedProperty": "contrat_alternance_ou_de_stage_3_dernieres_fiches_de_paie_provided",
+    "tab": [
+      "decret"
+    ],
+    "order": [
+      30
+    ],
+    "conditions": [
+      {
+        "property": "quelle_est_votre_situation_professionnel__",
+        "operator": "in",
+        "value": "Stagiaire de la formation professionnelle"
+      },
+      {
+        "property": "sous_categorie",
+        "operator": "equals",
+        "value": "Naturalisation par décret"
+      }
+    ]
+  },
+  {
+    "id": "copie_intgrale_de_lacte_de_mariage_et_sa_traduction_par_traducteur_asserment_ou_le_consulat_sil_sagit_dun_acte_tranger_de_moins_de_3mois",
+    "name": "Copie intégrale de l'acte de mariage (et sa traduction par traducteur assermenté ou le consulat s'il s'agit d'un acte étranger) de moins de 3mois",
+    "requiredProperty": "copie_integrale_de_lacte_de_mariage_et_sa_traduction_par_traducteur_assermente_ou_le_consu_required",
+    "providedProperty": "copie_integrale_de_lacte_de_mariage_et_sa_traduction_par_traducteur_assermente_ou_le_consu_provided",
+    "tab": [
+      "decret",
+      "fraterie"
+    ],
+    "order": [
+      31,
+      13
+    ],
+    "conditions": [
+      {
+        "property": "quelle_est_votre_situation_familliale",
+        "operator": "in",
+        "value": "Marié(e) (situation actuelle)"
+      },
+      {
+        "property": "sous_categorie",
+        "operator": "equals",
+        "value": "Naturalisation par décret"
+      },
+      {
+        "property": "sous_categorie",
+        "operator": "equals",
+        "value": "Naturalisation par fratrie"
+      }
+    ]
+  },
+  {
+    "id": "document_didentit_du_conjoint_attestant_la_ou_les_nationalits_dorigine",
+    "name": "Document d'identité du conjoint attestant la (ou les) nationalité(s) d'origine",
+    "requiredProperty": "document_didentite_du_conjoint_attestant_la_ou_les_nationalites_dorigine_required",
+    "providedProperty": "document_didentite_du_conjoint_attestant_la_ou_les_nationalites_dorigine_provided",
+    "tab": [
+      "decret",
+      "fraterie"
+    ],
+    "order": [
+      32,
+      14
+    ],
+    "conditions": [
+      {
+        "property": "quelle_est_votre_situation_familliale",
+        "operator": "in",
+        "value": "Marié(e) (situation actuelle)"
+      },
+      {
+        "property": "sous_categorie",
+        "operator": "equals",
+        "value": "Naturalisation par décret"
+      },
+      {
+        "property": "sous_categorie",
+        "operator": "equals",
+        "value": "Naturalisation par fratrie"
+      }
+    ]
+  },
+  {
+    "id": "titre_de_sjour_du_conjointe_ou_concubine",
+    "name": "Titre de séjour du conjoint(e) ou concubin(e)",
+    "requiredProperty": "titre_de_sejour_du_conjointe_ou_concubine_required",
+    "providedProperty": "titre_de_sejour_du_conjointe_ou_concubine_provided",
+    "tab": [
+      "decret"
+    ],
+    "order": [
+      33
+    ],
+    "conditions": [
+      {
+        "property": "quelle_est_votre_situation_familliale",
+        "operator": "in",
+        "value": "Marié(e) (situation actuelle)"
+      },
+      {
+        "property": "sous_categorie",
+        "operator": "equals",
+        "value": "Naturalisation par décret"
+      }
+    ]
+  },
+  {
+    "id": "avis_dimposition_ou_de_nonimposition_du_conjointconcubin_des_3_dernires_annes",
+    "name": "Avis d’imposition (ou de non-imposition) du conjoint/concubin des 3 dernières années",
+    "requiredProperty": "avis_dimposition_ou_de_nonimposition_du_conjointconcubin_des_3_dernieres_annees_required",
+    "providedProperty": "avis_dimposition_ou_de_nonimposition_du_conjointconcubin_des_3_dernieres_annees_provided",
+    "tab": [
+      "decret"
+    ],
+    "order": [
+      34
+    ],
+    "conditions": [
+      {
+        "property": "quelle_est_votre_situation_familliale",
+        "operator": "in",
+        "value": "Marié(e) (situation actuelle)"
+      },
+      {
+        "property": "sous_categorie",
+        "operator": "equals",
+        "value": "Naturalisation par décret"
+      }
+    ]
+  },
+  {
+    "id": "attestation_sur_lhonneur_de_vie_commune",
+    "name": "Attestation sur l'honneur de vie commune",
+    "requiredProperty": "attestation_sur_lhonneur_de_vie_commune_required",
+    "providedProperty": "attestation_sur_lhonneur_de_vie_commune_provided",
+    "tab": [
+      "decret",
+      "fraterie"
+    ],
+    "order": [
+      35,
+      18
+    ],
+    "conditions": [
+      {
+        "property": "quelle_est_votre_situation_familliale",
+        "operator": "in",
+        "value": "Concubinage (vie commune)"
+      },
+      {
+        "property": "sous_categorie",
+        "operator": "equals",
+        "value": "Naturalisation par décret"
+      },
+      {
+        "property": "sous_categorie",
+        "operator": "equals",
+        "value": "Naturalisation par fratrie"
+      }
+    ]
+  },
+  {
+    "id": "preuves_de_communaut_de_vie",
+    "name": "Preuves de communauté de vie",
+    "requiredProperty": "preuves_de_communaute_de_vie_required",
+    "providedProperty": "preuves_de_communaute_de_vie_provided",
+    "tab": [
+      "decret",
+      "fraterie"
+    ],
+    "order": [
+      36,
+      18
+    ],
+    "conditions": [
+      {
+        "property": "quelle_est_votre_situation_familliale",
+        "operator": "in",
+        "value": "Concubinage (vie commune)"
+      },
+      {
+        "property": "sous_categorie",
+        "operator": "equals",
+        "value": "Naturalisation par décret"
+      },
+      {
+        "property": "sous_categorie",
+        "operator": "equals",
+        "value": "Naturalisation par fratrie"
+      }
+    ]
+  },
+  {
+    "id": "id_du_concubin_ou_titre_de_sjourvisa_si_tranger",
+    "name": "ID du concubin OU Titre de séjour/visa (si étranger)",
+    "requiredProperty": "id_du_concubin_ou_titre_de_sejourvisa_si_etranger_required",
+    "providedProperty": "id_du_concubin_ou_titre_de_sejourvisa_si_etranger_provided",
+    "tab": [
+      "decret",
+      "fraterie"
+    ],
+    "order": [
+      37,
+      19
+    ],
+    "conditions": [
+      {
+        "property": "quelle_est_votre_situation_familliale",
+        "operator": "in",
+        "value": "Concubinage (vie commune)"
+      },
+      {
+        "property": "sous_categorie",
+        "operator": "equals",
+        "value": "Naturalisation par décret"
+      },
+      {
+        "property": "sous_categorie",
+        "operator": "equals",
+        "value": "Naturalisation par fratrie"
+      }
+    ]
+  },
+  {
+    "id": "3_dernires_fiches_de_paie_du_concucin_3_derniers_avis_dimpts_contrat_de_travail",
+    "name": "3 dernières fiches de paie du concucin + 3 derniers avis d'impôts + contrat de travail",
+    "requiredProperty": "doc_3_dernieres_fiches_de_paie_du_concucin_3_derniers_avis_dimpots_contrat_de_travail_required",
+    "providedProperty": "doc_3_dernieres_fiches_de_paie_du_concucin_3_derniers_avis_dimpots_contrat_de_travail_provided",
+    "tab": [
+      "decret"
+    ],
+    "order": [
+      38
+    ],
+    "conditions": [
+      {
+        "property": "quelle_est_votre_situation_familliale",
+        "operator": "in",
+        "value": "Concubinage (vie commune)"
+      },
+      {
+        "property": "quelle_est_votre_situation_familliale",
+        "operator": "in",
+        "value": "PACS"
+      },
+      {
+        "property": "sous_categorie",
+        "operator": "equals",
+        "value": "Naturalisation par décret"
+      }
+    ]
+  },
+  {
+    "id": "conventionattestation_de_pacs",
+    "name": "Convention/attestation de PACS",
+    "requiredProperty": "conventionattestation_de_pacs_required",
+    "providedProperty": "conventionattestation_de_pacs_provided",
+    "tab": [
+      "decret",
+      "fraterie"
+    ],
+    "order": [
+      39,
+      21
+    ],
+    "conditions": [
+      {
+        "property": "quelle_est_votre_situation_familliale",
+        "operator": "in",
+        "value": "PACS"
+      },
+      {
+        "property": "sous_categorie",
+        "operator": "equals",
+        "value": "Naturalisation par décret"
+      },
+      {
+        "property": "sous_categorie",
+        "operator": "equals",
+        "value": "Naturalisation par fratrie"
+      }
+    ]
+  },
+  {
+    "id": "justificatifs_de_vie_commune",
+    "name": "Justificatifs de vie commune",
+    "requiredProperty": "justificatifs_de_vie_commune_required",
+    "providedProperty": "justificatifs_de_vie_commune_provided",
+    "tab": [
+      "decret",
+      "fraterie"
+    ],
+    "order": [
+      40,
+      22
+    ],
+    "conditions": [
+      {
+        "property": "quelle_est_votre_situation_familliale",
+        "operator": "in",
+        "value": "PACS"
+      },
+      {
+        "property": "sous_categorie",
+        "operator": "equals",
+        "value": "Naturalisation par décret"
+      },
+      {
+        "property": "sous_categorie",
+        "operator": "equals",
+        "value": "Naturalisation par fratrie"
+      }
+    ]
+  },
+  {
+    "id": "id_du_partenaire",
+    "name": "ID du partenaire",
+    "requiredProperty": "id_du_partenaire_required",
+    "providedProperty": "id_du_partenaire_provided",
+    "tab": [
+      "decret",
+      "fraterie"
+    ],
+    "order": [
+      41,
+      23
+    ],
+    "conditions": [
+      {
+        "property": "quelle_est_votre_situation_familliale",
+        "operator": "in",
+        "value": "PACS"
+      },
+      {
+        "property": "sous_categorie",
+        "operator": "equals",
+        "value": "Naturalisation par décret"
+      },
+      {
+        "property": "sous_categorie",
+        "operator": "equals",
+        "value": "Naturalisation par fratrie"
+      }
+    ]
+  },
+  {
+    "id": "d1_acte_attestant_lunion_acte_de_mariage_et_sa_traduction_sil_sagit_dun_acte_tranger",
+    "name": "D1 Acte attestant l’union - acte de mariage (et sa traduction s’il s’agit d’un acte étranger)",
+    "requiredProperty": "d1_acte_attestant_lunion_acte_de_mariage_et_sa_traduction_sil_sagit_dun_acte_etranger_required",
+    "providedProperty": "d1_acte_attestant_lunion_acte_de_mariage_et_sa_traduction_sil_sagit_dun_acte_etranger_provided",
+    "tab": [
+      "decret",
+      "fraterie"
+    ],
+    "order": [
+      43,
+      26
+    ],
+    "conditions": [
+      {
+        "property": "quelle_est_votre_situation_familliale",
+        "operator": "in",
+        "value": "Divorcé(e) – 1er mariage"
+      },
+      {
+        "property": "sous_categorie",
+        "operator": "equals",
+        "value": "Naturalisation par décret"
+      },
+      {
+        "property": "sous_categorie",
+        "operator": "equals",
+        "value": "Naturalisation par fratrie"
+      }
+    ]
+  },
+  {
+    "id": "d1_dcision_de_dissolution_de_lunion_acte_de_divorce_et_sa_traduction_sil_sagit_dun_acte_tranger",
+    "name": "D1 Décision de dissolution de l’union - acte de divorce (et sa traduction s’il s’agit d’un acte étranger)",
+    "requiredProperty": "d1_decision_de_dissolution_de_lunion_acte_de_divorce_et_sa_traduction_sil_sagit_dun_acte_e_required",
+    "providedProperty": "d1_decision_de_dissolution_de_lunion_acte_de_divorce_et_sa_traduction_sil_sagit_dun_acte_e_provided",
+    "tab": [
+      "decret"
+    ],
+    "order": [
+      44
+    ],
+    "conditions": [
+      {
+        "property": "quelle_est_votre_situation_familliale",
+        "operator": "in",
+        "value": "Divorcé(e) – 1er mariage"
+      },
+      {
+        "property": "sous_categorie",
+        "operator": "equals",
+        "value": "Naturalisation par décret"
+      }
+    ]
+  },
+  {
+    "id": "d2_acte_attestant_lunion_acte_de_mariage_et_sa_traduction_sil_sagit_dun_acte_tranger",
+    "name": "D2 Acte attestant l’union - acte de mariage (et sa traduction s’il s’agit d’un acte étranger)",
+    "requiredProperty": "d2_acte_attestant_lunion_acte_de_mariage_et_sa_traduction_sil_sagit_dun_acte_etranger_required",
+    "providedProperty": "d2_acte_attestant_lunion_acte_de_mariage_et_sa_traduction_sil_sagit_dun_acte_etranger_provided",
+    "tab": [
+      "decret",
+      "fraterie"
+    ],
+    "order": [
+      45,
+      27
+    ],
+    "conditions": [
+      {
+        "property": "quelle_est_votre_situation_familliale",
+        "operator": "in",
+        "value": "Divorcé(e) – 2e mariage"
+      },
+      {
+        "property": "sous_categorie",
+        "operator": "equals",
+        "value": "Naturalisation par fratrie"
+      }
+    ]
+  },
+  {
+    "id": "d2_dcision_de_dissolution_de_lunion_acte_de_divorce_et_sa_traduction_sil_sagit_dun_acte_tranger",
+    "name": "D2 Décision de dissolution de l’union - acte de divorce (et sa traduction s’il s’agit d’un acte étranger)",
+    "requiredProperty": "d2_decision_de_dissolution_de_lunion_acte_de_divorce_et_sa_traduction_sil_sagit_dun_acte_e_required",
+    "providedProperty": "d2_decision_de_dissolution_de_lunion_acte_de_divorce_et_sa_traduction_sil_sagit_dun_acte_e_provided",
+    "tab": [
+      "decret",
+      "fraterie"
+    ],
+    "order": [
+      46,
+      28
+    ],
+    "conditions": [
+      {
+        "property": "quelle_est_votre_situation_familliale",
+        "operator": "in",
+        "value": "Divorcé(e) – 2e mariage"
+      },
+      {
+        "property": "sous_categorie",
+        "operator": "equals",
+        "value": "Naturalisation par décret"
+      },
+      {
+        "property": "sous_categorie",
+        "operator": "equals",
+        "value": "Naturalisation par fratrie"
+      }
+    ]
+  },
+  {
+    "id": "d3_acte_attestant_lunion_acte_de_mariage_et_sa_traduction_sil_sagit_dun_acte_tranger",
+    "name": "D3 Acte attestant l’union - acte de mariage (et sa traduction s’il s’agit d’un acte étranger)",
+    "requiredProperty": "d3_acte_attestant_lunion_acte_de_mariage_et_sa_traduction_sil_sagit_dun_acte_etranger_required",
+    "providedProperty": "d3_acte_attestant_lunion_acte_de_mariage_et_sa_traduction_sil_sagit_dun_acte_etranger_provided",
+    "tab": [
+      "decret",
+      "fraterie"
+    ],
+    "order": [
+      47,
+      29
+    ],
+    "conditions": [
+      {
+        "property": "quelle_est_votre_situation_familliale",
+        "operator": "in",
+        "value": "Divorcé(e) – 3e mariage"
+      },
+      {
+        "property": "sous_categorie",
+        "operator": "equals",
+        "value": "Naturalisation par décret"
+      },
+      {
+        "property": "sous_categorie",
+        "operator": "equals",
+        "value": "Naturalisation par fratrie"
+      }
+    ]
+  },
+  {
+    "id": "d3_dcision_de_dissolution_de_lunion_acte_de_divorce_et_sa_traduction_sil_sagit_dun_acte_tranger",
+    "name": "D3 Décision de dissolution de l’union - acte de divorce (et sa traduction s’il s’agit d’un acte étranger)",
+    "requiredProperty": "d3_decision_de_dissolution_de_lunion_acte_de_divorce_et_sa_traduction_sil_sagit_dun_acte_e_required",
+    "providedProperty": "d3_decision_de_dissolution_de_lunion_acte_de_divorce_et_sa_traduction_sil_sagit_dun_acte_e_provided",
+    "tab": [
+      "decret",
+      "fraterie"
+    ],
+    "order": [
+      48,
+      30
+    ],
+    "conditions": [
+      {
+        "property": "quelle_est_votre_situation_familliale",
+        "operator": "in",
+        "value": "Divorcé(e) – 3e mariage"
+      },
+      {
+        "property": "sous_categorie",
+        "operator": "equals",
+        "value": "Naturalisation par décret"
+      },
+      {
+        "property": "sous_categorie",
+        "operator": "equals",
+        "value": "Naturalisation par fratrie"
+      }
+    ]
+  },
+  {
+    "id": "ordonnancejuge_sparation_de_corps",
+    "name": "Ordonnance/juge – séparation de corps",
+    "requiredProperty": "ordonnancejuge_separation_de_corps_required",
+    "providedProperty": "ordonnancejuge_separation_de_corps_provided",
+    "tab": [
+      "decret",
+      "fraterie"
+    ],
+    "order": [
+      49,
+      31
+    ],
+    "conditions": [
+      {
+        "property": "quelle_est_votre_situation_familliale",
+        "operator": "in",
+        "value": "Séparé(e) légalement"
+      },
+      {
+        "property": "sous_categorie",
+        "operator": "equals",
+        "value": "Naturalisation par décret"
+      },
+      {
+        "property": "sous_categorie",
+        "operator": "equals",
+        "value": "Naturalisation par fratrie"
+      }
+    ]
+  },
+  {
+    "id": "mesures_accessoires_pension_logement",
+    "name": "Mesures accessoires (pension, logement…)",
+    "requiredProperty": "mesures_accessoires_pension_logement_required",
+    "providedProperty": "mesures_accessoires_pension_logement_provided",
+    "tab": [
+      "decret",
+      "fraterie"
+    ],
+    "order": [
+      50,
+      32
+    ],
+    "conditions": [
+      {
+        "property": "quelle_est_votre_situation_familliale",
+        "operator": "in",
+        "value": "Séparé(e) légalement"
+      },
+      {
+        "property": "sous_categorie",
+        "operator": "equals",
+        "value": "Naturalisation par décret"
+      },
+      {
+        "property": "sous_categorie",
+        "operator": "equals",
+        "value": "Naturalisation par fratrie"
+      }
+    ]
+  },
+  {
+    "id": "acte_de_dcs_du_conjoint",
+    "name": "Acte de décès du conjoint",
+    "requiredProperty": "acte_de_deces_du_conjoint_required",
+    "providedProperty": "acte_de_deces_du_conjoint_provided",
+    "tab": [
+      "decret",
+      "fraterie"
+    ],
+    "order": [
+      51,
+      33
+    ],
+    "conditions": [
+      {
+        "property": "quelle_est_votre_situation_familliale",
+        "operator": "in",
+        "value": "Veuf(ve)"
+      },
+      {
+        "property": "sous_categorie",
+        "operator": "equals",
+        "value": "Naturalisation par décret"
+      },
+      {
+        "property": "sous_categorie",
+        "operator": "equals",
+        "value": "Naturalisation par fratrie"
+      }
+    ]
+  },
+  {
+    "id": "acte_de_mariage",
+    "name": "Acte de mariage",
+    "requiredProperty": "acte_de_mariage_required",
+    "providedProperty": "acte_de_mariage_provided",
+    "tab": [
+      "decret",
+      "fraterie"
+    ],
+    "order": [
+      52,
+      34
+    ],
+    "conditions": [
+      {
+        "property": "quelle_est_votre_situation_familliale",
+        "operator": "in",
+        "value": "Veuf(ve)"
+      },
+      {
+        "property": "sous_categorie",
+        "operator": "equals",
+        "value": "Naturalisation par décret"
+      },
+      {
+        "property": "sous_categorie",
+        "operator": "equals",
+        "value": "Naturalisation par fratrie"
+      }
+    ]
+  },
+  {
+    "id": "em1_copie_intgrale_de_lacte_de_naissance_et_sa_traduction_sil_sagit_dun_acte_tranger",
+    "name": "EM1 Copie intégrale de l'acte de naissance (et sa traduction s'il s'agit d'un acte étranger)",
+    "requiredProperty": "em1_copie_integrale_de_lacte_de_naissance_et_sa_traduction_sil_sagit_dun_acte_etranger_required",
+    "providedProperty": "em1_copie_integrale_de_lacte_de_naissance_et_sa_traduction_sil_sagit_dun_acte_etranger_provided",
+    "tab": [
+      "decret",
+      "fraterie"
+    ],
+    "order": [
+      54,
+      38
+    ],
+    "conditions": [
+      {
+        "property": "avez_vous_des_enfant_mineur__",
+        "operator": "in",
+        "value": "Enfant mineur n°1"
+      },
+      {
+        "property": "sous_categorie",
+        "operator": "equals",
+        "value": "Naturalisation par décret"
+      },
+      {
+        "property": "sous_categorie",
+        "operator": "equals",
+        "value": "Naturalisation par fratrie"
+      }
+    ]
+  },
+  {
+    "id": "em1_passeport_ou_pice_didentit",
+    "name": "EM1 Passeport ou Pièce d'identité",
+    "requiredProperty": "em1_passeport_ou_piece_didentite_required",
+    "providedProperty": "em1_passeport_ou_piece_didentite_provided",
+    "tab": [
+      "decret",
+      "fraterie"
+    ],
+    "order": [
+      54,
+      37
+    ],
+    "conditions": [
+      {
+        "property": "avez_vous_des_enfant_mineur__",
+        "operator": "in",
+        "value": "Enfant mineur n°1"
+      },
+      {
+        "property": "sous_categorie",
+        "operator": "equals",
+        "value": "Naturalisation par décret"
+      },
+      {
+        "property": "sous_categorie",
+        "operator": "equals",
+        "value": "Naturalisation par fratrie"
+      }
+    ]
+  },
+  {
+    "id": "em1_justificatif_de_rsidence_en_france",
+    "name": "EM1 Justificatif de résidence en France",
+    "requiredProperty": "em1_justificatif_de_residence_en_france_required",
+    "providedProperty": "em1_justificatif_de_residence_en_france_provided",
+    "tab": [
+      "decret",
+      "fraterie"
+    ],
+    "order": [
+      56,
+      39
+    ],
+    "conditions": [
+      {
+        "property": "avez_vous_des_enfant_mineur__",
+        "operator": "in",
+        "value": "Enfant mineur n°1"
+      },
+      {
+        "property": "sous_categorie",
+        "operator": "equals",
+        "value": "Naturalisation par décret"
+      },
+      {
+        "property": "sous_categorie",
+        "operator": "equals",
+        "value": "Naturalisation par fratrie"
+      }
+    ]
+  },
+  {
+    "id": "em2_passeport_ou_pice_didentit",
+    "name": "EM2 Passeport ou Pièce d'identité",
+    "requiredProperty": "em2_passeport_ou_piece_didentite_required",
+    "providedProperty": "em2_passeport_ou_piece_didentite_provided",
+    "tab": [
+      "decret",
+      "fraterie"
+    ],
+    "order": [
+      57,
+      40
+    ],
+    "conditions": [
+      {
+        "property": "avez_vous_des_enfant_mineur__",
+        "operator": "in",
+        "value": "Enfant mineur n°2"
+      },
+      {
+        "property": "sous_categorie",
+        "operator": "equals",
+        "value": "Naturalisation par décret"
+      },
+      {
+        "property": "sous_categorie",
+        "operator": "equals",
+        "value": "Naturalisation par fratrie"
+      }
+    ]
+  },
+  {
+    "id": "em2_copie_intgrale_de_lacte_de_naissance_et_sa_traduction_sil_sagit_dun_acte_tranger",
+    "name": "EM2 Copie intégrale de l'acte de naissance (et sa traduction s'il s'agit d'un acte étranger)",
+    "requiredProperty": "em2_copie_integrale_de_lacte_de_naissance_et_sa_traduction_sil_sagit_dun_acte_etranger_required",
+    "providedProperty": "em2_copie_integrale_de_lacte_de_naissance_et_sa_traduction_sil_sagit_dun_acte_etranger_provided",
+    "tab": [
+      "decret",
+      "fraterie"
+    ],
+    "order": [
+      58,
+      41
+    ],
+    "conditions": [
+      {
+        "property": "avez_vous_des_enfant_mineur__",
+        "operator": "in",
+        "value": "Enfant mineur n°2"
+      },
+      {
+        "property": "sous_categorie",
+        "operator": "equals",
+        "value": "Naturalisation par décret"
+      },
+      {
+        "property": "sous_categorie",
+        "operator": "equals",
+        "value": "Naturalisation par fratrie"
+      }
+    ]
+  },
+  {
+    "id": "em2_justificatif_de_rsidence_en_france",
+    "name": "EM2 Justificatif de résidence en France",
+    "requiredProperty": "em2_justificatif_de_residence_en_france_required",
+    "providedProperty": "em2_justificatif_de_residence_en_france_provided",
+    "tab": [
+      "decret",
+      "fraterie"
+    ],
+    "order": [
+      59,
+      45
+    ],
+    "conditions": [
+      {
+        "property": "avez_vous_des_enfant_mineur__",
+        "operator": "in",
+        "value": "Enfant mineur n°2"
+      },
+      {
+        "property": "sous_categorie",
+        "operator": "equals",
+        "value": "Naturalisation par décret"
+      },
+      {
+        "property": "sous_categorie",
+        "operator": "equals",
+        "value": "Naturalisation par fratrie"
+      }
+    ]
+  },
+  {
+    "id": "em3_passeport_ou_pice_didentit",
+    "name": "EM3 Passeport ou Pièce d'identité",
+    "requiredProperty": "em3_passeport_ou_piece_didentite_required",
+    "providedProperty": "em3_passeport_ou_piece_didentite_provided",
+    "tab": [
+      "decret",
+      "fraterie"
+    ],
+    "order": [
+      60,
+      43
+    ],
+    "conditions": [
+      {
+        "property": "avez_vous_des_enfant_mineur__",
+        "operator": "in",
+        "value": "Enfant mineur n°3"
+      },
+      {
+        "property": "sous_categorie",
+        "operator": "equals",
+        "value": "Naturalisation par décret"
+      },
+      {
+        "property": "sous_categorie",
+        "operator": "equals",
+        "value": "Naturalisation par fratrie"
+      }
+    ]
+  },
+  {
+    "id": "em3_copie_intgrale_de_lacte_de_naissance_et_sa_traduction_sil_sagit_dun_acte_tranger",
+    "name": "EM3 Copie intégrale de l'acte de naissance (et sa traduction s'il s'agit d'un acte étranger)",
+    "requiredProperty": "em3_copie_integrale_de_lacte_de_naissance_et_sa_traduction_sil_sagit_dun_acte_etranger_required",
+    "providedProperty": "em3_copie_integrale_de_lacte_de_naissance_et_sa_traduction_sil_sagit_dun_acte_etranger_provided",
+    "tab": [
+      "decret",
+      "fraterie"
+    ],
+    "order": [
+      61,
+      44
+    ],
+    "conditions": [
+      {
+        "property": "avez_vous_des_enfant_mineur__",
+        "operator": "in",
+        "value": "Enfant mineur n°3"
+      },
+      {
+        "property": "sous_categorie",
+        "operator": "equals",
+        "value": "Naturalisation par décret"
+      },
+      {
+        "property": "sous_categorie",
+        "operator": "equals",
+        "value": "Naturalisation par fratrie"
+      }
+    ]
+  },
+  {
+    "id": "em3_justificatif_de_rsidence_en_france",
+    "name": "EM3 Justificatif de résidence en France",
+    "requiredProperty": "em3_justificatif_de_residence_en_france_required",
+    "providedProperty": "em3_justificatif_de_residence_en_france_provided",
+    "tab": [
+      "decret",
+      "fraterie"
+    ],
+    "order": [
+      62,
+      48
+    ],
+    "conditions": [
+      {
+        "property": "avez_vous_des_enfant_mineur__",
+        "operator": "in",
+        "value": "Enfant mineur n°3"
+      },
+      {
+        "property": "sous_categorie",
+        "operator": "equals",
+        "value": "Naturalisation par décret"
+      },
+      {
+        "property": "sous_categorie",
+        "operator": "equals",
+        "value": "Naturalisation par fratrie"
+      }
+    ]
+  },
+  {
+    "id": "em4_passeport_ou_pice_didentit",
+    "name": "EM4 Passeport ou Pièce d'identité",
+    "requiredProperty": "em4_passeport_ou_piece_didentite_required",
+    "providedProperty": "em4_passeport_ou_piece_didentite_provided",
+    "tab": [
+      "decret",
+      "fraterie"
+    ],
+    "order": [
+      63,
+      46
+    ],
+    "conditions": [
+      {
+        "property": "avez_vous_des_enfant_mineur__",
+        "operator": "in",
+        "value": "Enfant mineur n°4"
+      },
+      {
+        "property": "sous_categorie",
+        "operator": "equals",
+        "value": "Naturalisation par décret"
+      },
+      {
+        "property": "sous_categorie",
+        "operator": "equals",
+        "value": "Naturalisation par fratrie"
+      }
+    ]
+  },
+  {
+    "id": "em4_copie_intgrale_de_lacte_de_naissance_et_sa_traduction_sil_sagit_dun_acte_tranger",
+    "name": "EM4 Copie intégrale de l'acte de naissance (et sa traduction s'il s'agit d'un acte étranger)",
+    "requiredProperty": "em4_copie_integrale_de_lacte_de_naissance_et_sa_traduction_sil_sagit_dun_acte_etranger_required",
+    "providedProperty": "em4_copie_integrale_de_lacte_de_naissance_et_sa_traduction_sil_sagit_dun_acte_etranger_provided",
+    "tab": [
+      "decret",
+      "fraterie"
+    ],
+    "order": [
+      64,
+      47
+    ],
+    "conditions": [
+      {
+        "property": "avez_vous_des_enfant_mineur__",
+        "operator": "in",
+        "value": "Enfant mineur n°4"
+      },
+      {
+        "property": "sous_categorie",
+        "operator": "equals",
+        "value": "Naturalisation par décret"
+      },
+      {
+        "property": "sous_categorie",
+        "operator": "equals",
+        "value": "Naturalisation par fratrie"
+      }
+    ]
+  },
+  {
+    "id": "em4_justificatif_de_rsidence_en_france",
+    "name": "EM4 Justificatif de résidence en France",
+    "requiredProperty": "em4_justificatif_de_residence_en_france_required",
+    "providedProperty": "em4_justificatif_de_residence_en_france_provided",
+    "tab": [
+      "decret",
+      "fraterie"
+    ],
+    "order": [
+      65,
+      51
+    ],
+    "conditions": [
+      {
+        "property": "avez_vous_des_enfant_mineur__",
+        "operator": "in",
+        "value": "Enfant mineur n°4"
+      },
+      {
+        "property": "sous_categorie",
+        "operator": "equals",
+        "value": "Naturalisation par décret"
+      },
+      {
+        "property": "sous_categorie",
+        "operator": "equals",
+        "value": "Naturalisation par fratrie"
+      }
+    ]
+  },
+  {
+    "id": "em5_passeport_ou_pice_didentit",
+    "name": "EM5 Passeport ou Pièce d'identité",
+    "requiredProperty": "em5_passeport_ou_piece_didentite_required",
+    "providedProperty": "em5_passeport_ou_piece_didentite_provided",
+    "tab": [
+      "decret",
+      "fraterie"
+    ],
+    "order": [
+      66,
+      49
+    ],
+    "conditions": [
+      {
+        "property": "avez_vous_des_enfant_mineur__",
+        "operator": "in",
+        "value": "Enfant mineur n°5"
+      },
+      {
+        "property": "sous_categorie",
+        "operator": "equals",
+        "value": "Naturalisation par décret"
+      },
+      {
+        "property": "sous_categorie",
+        "operator": "equals",
+        "value": "Naturalisation par fratrie"
+      }
+    ]
+  },
+  {
+    "id": "em5_copie_intgrale_de_lacte_de_naissance_et_sa_traduction_sil_sagit_dun_acte_tranger",
+    "name": "EM5 Copie intégrale de l'acte de naissance (et sa traduction s'il s'agit d'un acte étranger)",
+    "requiredProperty": "em5_copie_integrale_de_lacte_de_naissance_et_sa_traduction_sil_sagit_dun_acte_etranger_required",
+    "providedProperty": "em5_copie_integrale_de_lacte_de_naissance_et_sa_traduction_sil_sagit_dun_acte_etranger_provided",
+    "tab": [
+      "decret",
+      "fraterie"
+    ],
+    "order": [
+      67,
+      50
+    ],
+    "conditions": [
+      {
+        "property": "avez_vous_des_enfant_mineur__",
+        "operator": "in",
+        "value": "Enfant mineur n°5"
+      },
+      {
+        "property": "sous_categorie",
+        "operator": "equals",
+        "value": "Naturalisation par décret"
+      },
+      {
+        "property": "sous_categorie",
+        "operator": "equals",
+        "value": "Naturalisation par fratrie"
+      }
+    ]
+  },
+  {
+    "id": "em5_justificatif_de_rsidence_en_france",
+    "name": "EM5 Justificatif de résidence en France",
+    "requiredProperty": "em5_justificatif_de_residence_en_france_required",
+    "providedProperty": "em5_justificatif_de_residence_en_france_provided",
+    "tab": [
+      "decret",
+      "fraterie"
+    ],
+    "order": [
+      68,
+      54
+    ],
+    "conditions": [
+      {
+        "property": "avez_vous_des_enfant_mineur__",
+        "operator": "in",
+        "value": "Enfant mineur n°5"
+      },
+      {
+        "property": "sous_categorie",
+        "operator": "equals",
+        "value": "Naturalisation par décret"
+      },
+      {
+        "property": "sous_categorie",
+        "operator": "equals",
+        "value": "Naturalisation par fratrie"
+      }
+    ]
+  },
+  {
+    "id": "em6_passeport_ou_pice_didentit",
+    "name": "EM6 Passeport ou Pièce d'identité",
+    "requiredProperty": "em6_passeport_ou_piece_didentite_required",
+    "providedProperty": "em6_passeport_ou_piece_didentite_provided",
+    "tab": [
+      "decret",
+      "fraterie"
+    ],
+    "order": [
+      69,
+      52
+    ],
+    "conditions": [
+      {
+        "property": "avez_vous_des_enfant_mineur__",
+        "operator": "in",
+        "value": "Enfant mineur n°6"
+      },
+      {
+        "property": "sous_categorie",
+        "operator": "equals",
+        "value": "Naturalisation par décret"
+      },
+      {
+        "property": "sous_categorie",
+        "operator": "equals",
+        "value": "Naturalisation par fratrie"
+      }
+    ]
+  },
+  {
+    "id": "em6_copie_intgrale_de_lacte_de_naissance_et_sa_traduction_sil_sagit_dun_acte_tranger",
+    "name": "EM6 Copie intégrale de l'acte de naissance (et sa traduction s'il s'agit d'un acte étranger)",
+    "requiredProperty": "em6_copie_integrale_de_lacte_de_naissance_et_sa_traduction_sil_sagit_dun_acte_etranger_required",
+    "providedProperty": "em6_copie_integrale_de_lacte_de_naissance_et_sa_traduction_sil_sagit_dun_acte_etranger_provided",
+    "tab": [
+      "decret",
+      "fraterie"
+    ],
+    "order": [
+      70,
+      53
+    ],
+    "conditions": [
+      {
+        "property": "avez_vous_des_enfant_mineur__",
+        "operator": "in",
+        "value": "Enfant mineur n°6"
+      },
+      {
+        "property": "sous_categorie",
+        "operator": "equals",
+        "value": "Naturalisation par décret"
+      },
+      {
+        "property": "sous_categorie",
+        "operator": "equals",
+        "value": "Naturalisation par fratrie"
+      }
+    ]
+  },
+  {
+    "id": "em6_justificatif_de_rsidence_en_france",
+    "name": "EM6 Justificatif de résidence en France",
+    "requiredProperty": "em6_justificatif_de_residence_en_france_required",
+    "providedProperty": "em6_justificatif_de_residence_en_france_provided",
+    "tab": [
+      "decret",
+      "fraterie"
+    ],
+    "order": [
+      71,
+      57
+    ],
+    "conditions": [
+      {
+        "property": "avez_vous_des_enfant_mineur__",
+        "operator": "in",
+        "value": "Enfant mineur n°6"
+      },
+      {
+        "property": "sous_categorie",
+        "operator": "equals",
+        "value": "Naturalisation par décret"
+      },
+      {
+        "property": "sous_categorie",
+        "operator": "equals",
+        "value": "Naturalisation par fratrie"
+      }
+    ]
+  },
+  {
+    "id": "em7_passeport_ou_pice_didentit",
+    "name": "EM7 Passeport ou Pièce d'identité",
+    "requiredProperty": "em7_passeport_ou_piece_didentite_required",
+    "providedProperty": "em7_passeport_ou_piece_didentite_provided",
+    "tab": [
+      "decret",
+      "fraterie"
+    ],
+    "order": [
+      72,
+      55
+    ],
+    "conditions": [
+      {
+        "property": "avez_vous_des_enfant_mineur__",
+        "operator": "in",
+        "value": "Enfant mineur n°7"
+      },
+      {
+        "property": "sous_categorie",
+        "operator": "equals",
+        "value": "Naturalisation par décret"
+      },
+      {
+        "property": "sous_categorie",
+        "operator": "equals",
+        "value": "Naturalisation par fratrie"
+      }
+    ]
+  },
+  {
+    "id": "em7_copie_intgrale_de_lacte_de_naissance_et_sa_traduction_sil_sagit_dun_acte_tranger",
+    "name": "EM7 Copie intégrale de l'acte de naissance (et sa traduction s'il s'agit d'un acte étranger)",
+    "requiredProperty": "em7_copie_integrale_de_lacte_de_naissance_et_sa_traduction_sil_sagit_dun_acte_etranger_required",
+    "providedProperty": "em7_copie_integrale_de_lacte_de_naissance_et_sa_traduction_sil_sagit_dun_acte_etranger_provided",
+    "tab": [
+      "decret",
+      "fraterie"
+    ],
+    "order": [
+      73,
+      56
+    ],
+    "conditions": [
+      {
+        "property": "avez_vous_des_enfant_mineur__",
+        "operator": "in",
+        "value": "Enfant mineur n°7"
+      },
+      {
+        "property": "sous_categorie",
+        "operator": "equals",
+        "value": "Naturalisation par décret"
+      },
+      {
+        "property": "sous_categorie",
+        "operator": "equals",
+        "value": "Naturalisation par fratrie"
+      }
+    ]
+  },
+  {
+    "id": "em7_justificatif_de_rsidence_en_france",
+    "name": "EM7 Justificatif de résidence en France",
+    "requiredProperty": "em7_justificatif_de_residence_en_france_required",
+    "providedProperty": "em7_justificatif_de_residence_en_france_provided",
+    "tab": [
+      "decret",
+      "fraterie"
+    ],
+    "order": [
+      74,
+      60
+    ],
+    "conditions": [
+      {
+        "property": "avez_vous_des_enfant_mineur__",
+        "operator": "in",
+        "value": "Enfant mineur n°7"
+      },
+      {
+        "property": "sous_categorie",
+        "operator": "equals",
+        "value": "Naturalisation par décret"
+      },
+      {
+        "property": "sous_categorie",
+        "operator": "equals",
+        "value": "Naturalisation par fratrie"
+      }
+    ]
+  },
+  {
+    "id": "em8_passeport_ou_pice_didentit",
+    "name": "EM8 Passeport ou Pièce d'identité",
+    "requiredProperty": "em8_passeport_ou_piece_didentite_required",
+    "providedProperty": "em8_passeport_ou_piece_didentite_provided",
+    "tab": [
+      "decret",
+      "fraterie"
+    ],
+    "order": [
+      75,
+      58
+    ],
+    "conditions": [
+      {
+        "property": "avez_vous_des_enfant_mineur__",
+        "operator": "in",
+        "value": "Enfant mineur n°8"
+      },
+      {
+        "property": "sous_categorie",
+        "operator": "equals",
+        "value": "Naturalisation par décret"
+      },
+      {
+        "property": "sous_categorie",
+        "operator": "equals",
+        "value": "Naturalisation par fratrie"
+      }
+    ]
+  },
+  {
+    "id": "em8_copie_intgrale_de_lacte_de_naissance_et_sa_traduction_sil_sagit_dun_acte_tranger",
+    "name": "EM8 Copie intégrale de l'acte de naissance (et sa traduction s'il s'agit d'un acte étranger)",
+    "requiredProperty": "em8_copie_integrale_de_lacte_de_naissance_et_sa_traduction_sil_sagit_dun_acte_etranger_required",
+    "providedProperty": "em8_copie_integrale_de_lacte_de_naissance_et_sa_traduction_sil_sagit_dun_acte_etranger_provided",
+    "tab": [
+      "decret",
+      "fraterie"
+    ],
+    "order": [
+      76,
+      59
+    ],
+    "conditions": [
+      {
+        "property": "avez_vous_des_enfant_mineur__",
+        "operator": "in",
+        "value": "Enfant mineur n°8"
+      },
+      {
+        "property": "sous_categorie",
+        "operator": "equals",
+        "value": "Naturalisation par décret"
+      },
+      {
+        "property": "sous_categorie",
+        "operator": "equals",
+        "value": "Naturalisation par fratrie"
+      }
+    ]
+  },
+  {
+    "id": "em8_justificatif_de_rsidence_en_france",
+    "name": "EM8 Justificatif de résidence en France",
+    "requiredProperty": "em8_justificatif_de_residence_en_france_required",
+    "providedProperty": "em8_justificatif_de_residence_en_france_provided",
+    "tab": [
+      "decret",
+      "fraterie"
+    ],
+    "order": [
+      77,
+      63
+    ],
+    "conditions": [
+      {
+        "property": "avez_vous_des_enfant_mineur__",
+        "operator": "in",
+        "value": "Enfant mineur n°8"
+      },
+      {
+        "property": "sous_categorie",
+        "operator": "equals",
+        "value": "Naturalisation par décret"
+      },
+      {
+        "property": "sous_categorie",
+        "operator": "equals",
+        "value": "Naturalisation par fratrie"
+      }
+    ]
+  },
+  {
+    "id": "em9_passeport_ou_pice_didentit",
+    "name": "EM9 Passeport ou Pièce d'identité",
+    "requiredProperty": "em9_passeport_ou_piece_didentite_required",
+    "providedProperty": "em9_passeport_ou_piece_didentite_provided",
+    "tab": [
+      "decret",
+      "fraterie"
+    ],
+    "order": [
+      78,
+      61
+    ],
+    "conditions": [
+      {
+        "property": "avez_vous_des_enfant_mineur__",
+        "operator": "in",
+        "value": "Enfant mineur n°9"
+      },
+      {
+        "property": "sous_categorie",
+        "operator": "equals",
+        "value": "Naturalisation par décret"
+      },
+      {
+        "property": "sous_categorie",
+        "operator": "equals",
+        "value": "Naturalisation par fratrie"
+      }
+    ]
+  },
+  {
+    "id": "em9_copie_intgrale_de_lacte_de_naissance_et_sa_traduction_sil_sagit_dun_acte_tranger",
+    "name": "EM9 Copie intégrale de l'acte de naissance (et sa traduction s'il s'agit d'un acte étranger)",
+    "requiredProperty": "em9_copie_integrale_de_lacte_de_naissance_et_sa_traduction_sil_sagit_dun_acte_etranger_required",
+    "providedProperty": "em9_copie_integrale_de_lacte_de_naissance_et_sa_traduction_sil_sagit_dun_acte_etranger_provided",
+    "tab": [
+      "decret",
+      "fraterie"
+    ],
+    "order": [
+      79,
+      62
+    ],
+    "conditions": [
+      {
+        "property": "avez_vous_des_enfant_mineur__",
+        "operator": "in",
+        "value": "Enfant mineur n°9"
+      },
+      {
+        "property": "sous_categorie",
+        "operator": "equals",
+        "value": "Naturalisation par décret"
+      },
+      {
+        "property": "sous_categorie",
+        "operator": "equals",
+        "value": "Naturalisation par fratrie"
+      }
+    ]
+  },
+  {
+    "id": "em9_justificatif_de_rsidence_en_france",
+    "name": "EM9 Justificatif de résidence en France",
+    "requiredProperty": "em9_justificatif_de_residence_en_france_required",
+    "providedProperty": "em9_justificatif_de_residence_en_france_provided",
+    "tab": [
+      "decret",
+      "fraterie"
+    ],
+    "order": [
+      80,
+      66
+    ],
+    "conditions": [
+      {
+        "property": "avez_vous_des_enfant_mineur__",
+        "operator": "in",
+        "value": "Enfant mineur n°9"
+      },
+      {
+        "property": "sous_categorie",
+        "operator": "equals",
+        "value": "Naturalisation par décret"
+      },
+      {
+        "property": "sous_categorie",
+        "operator": "equals",
+        "value": "Naturalisation par fratrie"
+      }
+    ]
+  },
+  {
+    "id": "em10_passeport_ou_pice_didentit",
+    "name": "EM10 Passeport ou Pièce d'identité",
+    "requiredProperty": "em10_passeport_ou_piece_didentite_required",
+    "providedProperty": "em10_passeport_ou_piece_didentite_provided",
+    "tab": [
+      "decret",
+      "fraterie"
+    ],
+    "order": [
+      81,
+      64
+    ],
+    "conditions": [
+      {
+        "property": "avez_vous_des_enfant_mineur__",
+        "operator": "in",
+        "value": "Enfant mineur n°10"
+      },
+      {
+        "property": "sous_categorie",
+        "operator": "equals",
+        "value": "Naturalisation par décret"
+      },
+      {
+        "property": "sous_categorie",
+        "operator": "equals",
+        "value": "Naturalisation par fratrie"
+      }
+    ]
+  },
+  {
+    "id": "em10_copie_intgrale_de_lacte_de_naissance_et_sa_traduction_sil_sagit_dun_acte_tranger",
+    "name": "EM10 Copie intégrale de l'acte de naissance (et sa traduction s'il s'agit d'un acte étranger)",
+    "requiredProperty": "em10_copie_integrale_de_lacte_de_naissance_et_sa_traduction_sil_sagit_dun_acte_etranger_required",
+    "providedProperty": "em10_copie_integrale_de_lacte_de_naissance_et_sa_traduction_sil_sagit_dun_acte_etranger_provided",
+    "tab": [
+      "decret",
+      "fraterie"
+    ],
+    "order": [
+      82,
+      65
+    ],
+    "conditions": [
+      {
+        "property": "avez_vous_des_enfant_mineur__",
+        "operator": "in",
+        "value": "Enfant mineur n°10"
+      },
+      {
+        "property": "sous_categorie",
+        "operator": "equals",
+        "value": "Naturalisation par décret"
+      },
+      {
+        "property": "sous_categorie",
+        "operator": "equals",
+        "value": "Naturalisation par fratrie"
+      }
+    ]
+  },
+  {
+    "id": "em10_justificatif_de_rsidence_en_france",
+    "name": "EM10 Justificatif de résidence en France",
+    "requiredProperty": "em10_justificatif_de_residence_en_france_required",
+    "providedProperty": "em10_justificatif_de_residence_en_france_provided",
+    "tab": [
+      "decret",
+      "fraterie"
+    ],
+    "order": [
+      83,
+      69
+    ],
+    "conditions": [
+      {
+        "property": "avez_vous_des_enfant_mineur__",
+        "operator": "in",
+        "value": "Enfant mineur n°10"
+      },
+      {
+        "property": "sous_categorie",
+        "operator": "equals",
+        "value": "Naturalisation par décret"
+      },
+      {
+        "property": "sous_categorie",
+        "operator": "equals",
+        "value": "Naturalisation par fratrie"
+      }
+    ]
+  },
+  {
+    "id": "attestation_caf_rsa_apl_af_etc",
+    "name": "Attestation CAF (RSA, APL, AF, etc.)",
+    "requiredProperty": "attestation_caf_rsa_apl_af_etc_required",
+    "providedProperty": "attestation_caf_rsa_apl_af_etc_provided",
+    "tab": [
+      "decret"
+    ],
+    "order": [
+      92
+    ],
+    "conditions": [
+      {
+        "property": "percevez_vous_",
+        "operator": "in",
+        "value": "Prestations CAF"
+      },
+      {
+        "property": "sous_categorie",
+        "operator": "equals",
+        "value": "Naturalisation par décret"
+      }
+    ]
+  },
+  {
+    "id": "dernier_bordereau_de_paiement_caf",
+    "name": "Dernier bordereau de paiement CAF",
+    "requiredProperty": "dernier_bordereau_de_paiement_caf_required",
+    "providedProperty": "dernier_bordereau_de_paiement_caf_provided",
+    "tab": [
+      "decret"
+    ],
+    "order": [
+      93
+    ],
+    "conditions": [
+      {
+        "property": "percevez_vous_",
+        "operator": "in",
+        "value": "Prestations CAF"
+      },
+      {
+        "property": "sous_categorie",
+        "operator": "equals",
+        "value": "Naturalisation par décret"
+      }
+    ]
+  },
+  {
+    "id": "attestation_de_lorganisme_msacpample_emploiretraite",
+    "name": "Attestation de l’organisme MSA/CPAM/Pôle emploi/retraite",
+    "requiredProperty": "attestation_de_lorganisme_msacpampole_emploiretraite_required",
+    "providedProperty": "attestation_de_lorganisme_msacpampole_emploiretraite_provided",
+    "tab": [
+      "decret"
+    ],
+    "order": [
+      94
+    ],
+    "conditions": [
+      {
+        "property": "percevez_vous_",
+        "operator": "in",
+        "value": "Prestations d’autres organismes (MSA/CPAM/Pôle emploi/retraite)"
+      },
+      {
+        "property": "sous_categorie",
+        "operator": "equals",
+        "value": "Naturalisation par décret"
+      }
+    ]
+  },
+  {
+    "id": "justificatif_du_dernier_versement_msacpample_emploiretraite",
+    "name": "Justificatif du dernier versement MSA/CPAM/Pôle emploi/retraite",
+    "requiredProperty": "justificatif_du_dernier_versement_msacpampole_emploiretraite_required",
+    "providedProperty": "justificatif_du_dernier_versement_msacpampole_emploiretraite_provided",
+    "tab": [
+      "decret"
+    ],
+    "order": [
+      95
+    ],
+    "conditions": [
+      {
+        "property": "percevez_vous_",
+        "operator": "in",
+        "value": "Prestations d’autres organismes (MSA/CPAM/Pôle emploi/retraite)"
+      },
+      {
+        "property": "sous_categorie",
+        "operator": "equals",
+        "value": "Naturalisation par décret"
+      }
+    ]
+  },
+  {
+    "id": "dernier_avis_dimposition",
+    "name": "Dernier avis d’imposition",
+    "requiredProperty": "dernier_avis_dimposition_required",
+    "providedProperty": "dernier_avis_dimposition_provided",
+    "tab": [
+      "decret"
+    ],
+    "order": [
+      96
+    ],
+    "conditions": [
+      {
+        "property": "percevez_vous_",
+        "operator": "in",
+        "value": "Revenus mobiliers/immobiliers de France"
+      },
+      {
+        "property": "sous_categorie",
+        "operator": "equals",
+        "value": "Naturalisation par décret"
+      }
+    ]
+  },
+  {
+    "id": "relevs_fonciers_2044_le_cas_chant",
+    "name": "Relevés fonciers 2044 le cas échéant",
+    "requiredProperty": "releves_fonciers_2044_le_cas_echeant_required",
+    "providedProperty": "releves_fonciers_2044_le_cas_echeant_provided",
+    "tab": [
+      "decret"
+    ],
+    "order": [
+      97
+    ],
+    "conditions": [
+      {
+        "property": "percevez_vous_",
+        "operator": "in",
+        "value": "Revenus mobiliers/immobiliers de France"
+      },
+      {
+        "property": "sous_categorie",
+        "operator": "equals",
+        "value": "Naturalisation par décret"
+      }
+    ]
+  },
+  {
+    "id": "bauxattestations_de_loyers",
+    "name": "Baux/attestations de loyers",
+    "requiredProperty": "bauxattestations_de_loyers_required",
+    "providedProperty": "bauxattestations_de_loyers_provided",
+    "tab": [
+      "decret"
+    ],
+    "order": [
+      98
+    ],
+    "conditions": [
+      {
+        "property": "percevez_vous_",
+        "operator": "in",
+        "value": "Revenus mobiliers/immobiliers de France"
+      },
+      {
+        "property": "sous_categorie",
+        "operator": "equals",
+        "value": "Naturalisation par décret"
+      }
+    ]
+  },
+  {
+    "id": "reus_de_loyers_relevs_bancaires_dividendes_intrts",
+    "name": "Reçus de loyers / relevés bancaires (dividendes, intérêts)",
+    "requiredProperty": "recus_de_loyers_releves_bancaires_dividendes_interets_required",
+    "providedProperty": "recus_de_loyers_releves_bancaires_dividendes_interets_provided",
+    "tab": [
+      "decret"
+    ],
+    "order": [
+      99
+    ],
+    "conditions": [
+      {
+        "property": "percevez_vous_",
+        "operator": "in",
+        "value": "Revenus mobiliers/immobiliers de France"
+      },
+      {
+        "property": "sous_categorie",
+        "operator": "equals",
+        "value": "Naturalisation par décret"
+      }
+    ]
+  },
+  {
+    "id": "attestations_fiscalesrelevs_trangers",
+    "name": "Attestations fiscales/relevés étrangers",
+    "requiredProperty": "attestations_fiscalesreleves_etrangers_required",
+    "providedProperty": "attestations_fiscalesreleves_etrangers_provided",
+    "tab": [
+      "decret"
+    ],
+    "order": [
+      100
+    ],
+    "conditions": [
+      {
+        "property": "percevez_vous_",
+        "operator": "in",
+        "value": "Revenus mobiliers/immobiliers de l’étranger"
+      },
+      {
+        "property": "sous_categorie",
+        "operator": "equals",
+        "value": "Naturalisation par décret"
+      }
+    ]
+  },
+  {
+    "id": "traduction_assermente_attestations_fiscalesrelevs_trangers",
+    "name": "Traduction assermentée Attestations fiscales/relevés étrangers",
+    "requiredProperty": "traduction_assermentee_attestations_fiscalesreleves_etrangers_required",
+    "providedProperty": "traduction_assermentee_attestations_fiscalesreleves_etrangers_provided",
+    "tab": [
+      "decret"
+    ],
+    "order": [
+      101
+    ],
+    "conditions": [
+      {
+        "property": "percevez_vous_",
+        "operator": "in",
+        "value": "Revenus mobiliers/immobiliers de l’étranger"
+      },
+      {
+        "property": "sous_categorie",
+        "operator": "equals",
+        "value": "Naturalisation par décret"
+      }
+    ]
+  },
+  {
+    "id": "lgalisationapostille_des_attestations_fiscalesrelevs_trangers_si_requis",
+    "name": "Légalisation/apostille des Attestations fiscales/relevés étrangers si requis",
+    "requiredProperty": "legalisationapostille_des_attestations_fiscalesreleves_etrangers_si_requis_required",
+    "providedProperty": "legalisationapostille_des_attestations_fiscalesreleves_etrangers_si_requis_provided",
+    "tab": [
+      "decret"
+    ],
+    "order": [
+      102
+    ],
+    "conditions": [
+      {
+        "property": "percevez_vous_",
+        "operator": "in",
+        "value": "Revenus mobiliers/immobiliers de l’étranger"
+      },
+      {
+        "property": "sous_categorie",
+        "operator": "equals",
+        "value": "Naturalisation par décret"
+      }
+    ]
+  },
+  {
+    "id": "jugementaccord_fixant_la_pension",
+    "name": "Jugement/accord fixant la pension",
+    "requiredProperty": "jugementaccord_fixant_la_pension_required",
+    "providedProperty": "jugementaccord_fixant_la_pension_provided",
+    "tab": [
+      "decret"
+    ],
+    "order": [
+      103
+    ],
+    "conditions": [
+      {
+        "property": "percevez_vous_",
+        "operator": "in",
+        "value": "Pension alimentaire"
+      },
+      {
+        "property": "sous_categorie",
+        "operator": "equals",
+        "value": "Naturalisation par décret"
+      }
+    ]
+  },
+  {
+    "id": "preuves_de_versement_de_la_pension_alimentaire_relevs_bancairesattestations",
+    "name": "Preuves de versement de la pension alimentaire (relevés bancaires/attestations)",
+    "requiredProperty": "preuves_de_versement_de_la_pension_alimentaire_releves_bancairesattestations_required",
+    "providedProperty": "preuves_de_versement_de_la_pension_alimentaire_releves_bancairesattestations_provided",
+    "tab": [
+      "decret"
+    ],
+    "order": [
+      104
+    ],
+    "conditions": [
+      {
+        "property": "percevez_vous_",
+        "operator": "in",
+        "value": "Pension alimentaire"
+      },
+      {
+        "property": "sous_categorie",
+        "operator": "equals",
+        "value": "Naturalisation par décret"
+      }
+    ]
+  },
+  {
+    "id": "attestation_de_pension_cpamorganisme",
+    "name": "Attestation de pension (CPAM/organisme)",
+    "requiredProperty": "attestation_de_pension_cpamorganisme_required",
+    "providedProperty": "attestation_de_pension_cpamorganisme_provided",
+    "tab": [
+      "decret"
+    ],
+    "order": [
+      105
+    ],
+    "conditions": [
+      {
+        "property": "percevez_vous_",
+        "operator": "in",
+        "value": "Pension d’invalidité"
+      },
+      {
+        "property": "sous_categorie",
+        "operator": "equals",
+        "value": "Naturalisation par décret"
+      }
+    ]
+  },
+  {
+    "id": "dernier_bordereau_de_paiement_cpamorganisme",
+    "name": "Dernier bordereau de paiement (CPAM/Organisme)",
+    "requiredProperty": "dernier_bordereau_de_paiement_cpamorganisme_required",
+    "providedProperty": "dernier_bordereau_de_paiement_cpamorganisme_provided",
+    "tab": [
+      "decret"
+    ],
+    "order": [
+      106
+    ],
+    "conditions": [
+      {
+        "property": "percevez_vous_",
+        "operator": "in",
+        "value": "Pension d’invalidité"
+      },
+      {
+        "property": "sous_categorie",
+        "operator": "equals",
+        "value": "Naturalisation par décret"
+      }
+    ]
+  },
+  {
+    "id": "attestation_de_rversion_caisse_de_retraite",
+    "name": "Attestation de réversion (caisse de retraite)",
+    "requiredProperty": "attestation_de_reversion_caisse_de_retraite_required",
+    "providedProperty": "attestation_de_reversion_caisse_de_retraite_provided",
+    "tab": [
+      "decret"
+    ],
+    "order": [
+      107
+    ],
+    "conditions": [
+      {
+        "property": "percevez_vous_",
+        "operator": "in",
+        "value": "Pension de réversion"
+      },
+      {
+        "property": "sous_categorie",
+        "operator": "equals",
+        "value": "Naturalisation par décret"
+      }
+    ]
+  },
+  {
+    "id": "justificatif_du_dernier_versement_pension_de_rversion",
+    "name": "Justificatif du dernier versement Pension de réversion",
+    "requiredProperty": "justificatif_du_dernier_versement_pension_de_reversion_required",
+    "providedProperty": "justificatif_du_dernier_versement_pension_de_reversion_provided",
+    "tab": [
+      "decret"
+    ],
+    "order": [
+      108
+    ],
+    "conditions": [
+      {
+        "property": "percevez_vous_",
+        "operator": "in",
+        "value": "Pension de réversion"
+      },
+      {
+        "property": "sous_categorie",
+        "operator": "equals",
+        "value": "Naturalisation par décret"
+      }
+    ]
+  },
+  {
+    "id": "attestation_dautres_organisme_payeur",
+    "name": "Attestation d'autres organisme payeur",
+    "requiredProperty": "attestation_dautres_organisme_payeur_required",
+    "providedProperty": "attestation_dautres_organisme_payeur_provided",
+    "tab": [
+      "decret"
+    ],
+    "order": [
+      109
+    ],
+    "conditions": [
+      {
+        "property": "percevez_vous_",
+        "operator": "in",
+        "value": "Autre pension"
+      },
+      {
+        "property": "sous_categorie",
+        "operator": "equals",
+        "value": "Naturalisation par décret"
+      }
+    ]
+  },
+  {
+    "id": "justificatif_du_dernier_versement_dautre_pension",
+    "name": "Justificatif du dernier versement d'autre pension",
+    "requiredProperty": "justificatif_du_dernier_versement_dautre_pension_required",
+    "providedProperty": "justificatif_du_dernier_versement_dautre_pension_provided",
+    "tab": [
+      "decret"
+    ],
+    "order": [
+      110
+    ],
+    "conditions": [
+      {
+        "property": "percevez_vous_",
+        "operator": "in",
+        "value": "Autre pension"
+      },
+      {
+        "property": "sous_categorie",
+        "operator": "equals",
+        "value": "Naturalisation par décret"
+      }
+    ]
+  },
+  {
+    "id": "attestation_de_prise_en_charge_signe",
+    "name": "Attestation de prise en charge signée",
+    "requiredProperty": "attestation_de_prise_en_charge_signee_required",
+    "providedProperty": "attestation_de_prise_en_charge_signee_provided",
+    "tab": [
+      "decret"
+    ],
+    "order": [
+      111
+    ],
+    "conditions": [
+      {
+        "property": "percevez_vous_",
+        "operator": "in",
+        "value": "Pris(e) en charge par un tiers (garant)"
+      },
+      {
+        "property": "sous_categorie",
+        "operator": "equals",
+        "value": "Naturalisation par décret"
+      }
+    ]
+  },
+  {
+    "id": "pice_didentit_du_garant",
+    "name": "Pièce d’identité du garant",
+    "requiredProperty": "piece_didentite_du_garant_required",
+    "providedProperty": "piece_didentite_du_garant_provided",
+    "tab": [
+      "decret"
+    ],
+    "order": [
+      112
+    ],
+    "conditions": [
+      {
+        "property": "percevez_vous_",
+        "operator": "in",
+        "value": "Pris(e) en charge par un tiers (garant)"
+      },
+      {
+        "property": "sous_categorie",
+        "operator": "equals",
+        "value": "Naturalisation par décret"
+      }
+    ]
+  },
+  {
+    "id": "justificatifs_de_ressources_du_garant_contrat_3_bulletins_bilan_si_indpendant_avis_dimpt",
+    "name": "Justificatifs de ressources du garant (contrat + 3 bulletins / bilan si indépendant + avis d’impôt)",
+    "requiredProperty": "justificatifs_de_ressources_du_garant_contrat_3_bulletins_bilan_si_independant_avis_dimpot_required",
+    "providedProperty": "justificatifs_de_ressources_du_garant_contrat_3_bulletins_bilan_si_independant_avis_dimpot_provided",
+    "tab": [
+      "decret"
+    ],
+    "order": [
+      113
+    ],
+    "conditions": [
+      {
+        "property": "percevez_vous_",
+        "operator": "in",
+        "value": "Pris(e) en charge par un tiers (garant)"
+      },
+      {
+        "property": "sous_categorie",
+        "operator": "equals",
+        "value": "Naturalisation par décret"
+      }
+    ]
+  },
+  {
+    "id": "justificatif_de_domicile_du_garant",
+    "name": "Justificatif de domicile du garant",
+    "requiredProperty": "justificatif_de_domicile_du_garant_required",
+    "providedProperty": "justificatif_de_domicile_du_garant_provided",
+    "tab": [
+      "decret"
+    ],
+    "order": [
+      114
+    ],
+    "conditions": [
+      {
+        "property": "percevez_vous_",
+        "operator": "in",
+        "value": "Pris(e) en charge par un tiers (garant)"
+      },
+      {
+        "property": "sous_categorie",
+        "operator": "equals",
+        "value": "Naturalisation par décret"
+      }
+    ]
+  },
+  {
+    "id": "formulaire_de_demande_cerfa_n1556203_2_exemplaires_renseignes",
+    "name": "Formulaire de demande CERFA N°15562*03 (2 exemplaires, renseignés)",
+    "requiredProperty": "formulaire_de_demande_cerfa_n1556203_2_exemplaires_renseignes_required",
+    "providedProperty": "formulaire_de_demande_cerfa_n1556203_2_exemplaires_renseignes_provided",
+    "tab": [
+      "fraterie"
+    ],
+    "order": [
+      1
+    ],
+    "conditions": [
+      {
+        "property": "sous_categorie",
+        "operator": "equals",
+        "value": "Naturalisation par fratrie"
+      }
+    ]
+  },
+  {
+    "id": "photos_didentite_2_pour_le_demandeur",
+    "name": "Photos d'identité (2 pour le demandeur)",
+    "requiredProperty": "photos_didentite_2_pour_le_demandeur_required",
+    "providedProperty": "photos_didentite_2_pour_le_demandeur_provided",
+    "tab": [
+      "fraterie"
+    ],
+    "order": [
+      3
+    ],
+    "conditions": [
+      {
+        "property": "sous_categorie",
+        "operator": "equals",
+        "value": "Naturalisation par fratrie"
+      }
+    ]
+  },
+  {
+    "id": "certificats_de_scolarite_ou_radiation_couvrant_la_periode_de_6_a_16_ans",
+    "name": "Certificats de scolarité ou radiation (couvrant la période de 6 à 16 ans)",
+    "requiredProperty": "certificats_de_scolarite_ou_radiation_couvrant_la_periode_de_6_a_16_ans_required",
+    "providedProperty": "certificats_de_scolarite_ou_radiation_couvrant_la_periode_de_6_a_16_ans_provided",
+    "tab": [
+      "fraterie"
+    ],
+    "order": [
+      5
+    ],
+    "conditions": [
+      {
+        "property": "sous_categorie",
+        "operator": "equals",
+        "value": "Naturalisation par fratrie"
+      }
+    ]
+  },
+  {
+    "id": "tout_document_justifiant_la_residence_continue_en_france_depuis_lage_de_16_ans_contrats_po",
+    "name": "Tout document justifiant la résidence continue en France depuis l'âge de 16 ans (contrats, Pôle emploi, relevé de carrière...)",
+    "requiredProperty": "tout_document_justifiant_la_residence_continue_en_france_depuis_lage_de_16_ans_contrats_po_required",
+    "providedProperty": "tout_document_justifiant_la_residence_continue_en_france_depuis_lage_de_16_ans_contrats_po_provided",
+    "tab": [
+      "fraterie"
+    ],
+    "order": [
+      6
+    ],
+    "conditions": [
+      {
+        "property": "sous_categorie",
+        "operator": "equals",
+        "value": "Naturalisation par fratrie"
+      }
+    ]
+  },
+  {
+    "id": "carte_nationale_didentite_2_photocopies_rv_du_frere_ou_de_la_sur",
+    "name": "Carte nationale d'identité (2 photocopies R/V) du frère ou de la sœur",
+    "requiredProperty": "carte_nationale_didentite_2_photocopies_rv_du_frere_ou_de_la_sur_required",
+    "providedProperty": "carte_nationale_didentite_2_photocopies_rv_du_frere_ou_de_la_sur_provided",
+    "tab": [
+      "fraterie"
+    ],
+    "order": [
+      7
+    ],
+    "conditions": [
+      {
+        "property": "sous_categorie",
+        "operator": "equals",
+        "value": "Naturalisation par fratrie"
+      }
+    ]
+  },
+  {
+    "id": "copie_integrale_originale_de_lacte_de_naissance_de_moins_de_3_mois_du_frere_ou_de_la_sur",
+    "name": "Copie intégrale originale de l'acte de naissance de moins de 3 mois du frère ou de la sœur",
+    "requiredProperty": "copie_integrale_originale_de_lacte_de_naissance_de_moins_de_3_mois_du_frere_ou_de_la_sur_required",
+    "providedProperty": "copie_integrale_originale_de_lacte_de_naissance_de_moins_de_3_mois_du_frere_ou_de_la_sur_provided",
+    "tab": [
+      "fraterie"
+    ],
+    "order": [
+      8
+    ],
+    "conditions": [
+      {
+        "property": "sous_categorie",
+        "operator": "equals",
+        "value": "Naturalisation par fratrie"
+      }
+    ]
+  },
+  {
+    "id": "certificat_de_nationalite_francaise_du_frere_ou_de_la_sur_original_et_copie",
+    "name": "Certificat de nationalité française du frère ou de la sœur (Original et copie)",
+    "requiredProperty": "certificat_de_nationalite_francaise_du_frere_ou_de_la_sur_original_et_copie_required",
+    "providedProperty": "certificat_de_nationalite_francaise_du_frere_ou_de_la_sur_original_et_copie_provided",
+    "tab": [
+      "fraterie"
+    ],
+    "order": [
+      9
+    ],
+    "conditions": [
+      {
+        "property": "sous_categorie",
+        "operator": "equals",
+        "value": "Naturalisation par fratrie"
+      }
+    ]
+  },
+  {
+    "id": "copie_integrale_originale_de_votre_acte_de_naissance",
+    "name": "Copie intégrale originale de votre acte de naissance",
+    "requiredProperty": "copie_integrale_originale_de_votre_acte_de_naissance_required",
+    "providedProperty": "copie_integrale_originale_de_votre_acte_de_naissance_provided",
+    "tab": [
+      "fraterie"
+    ],
+    "order": [
+      11
+    ],
+    "conditions": [
+      {
+        "property": "avez_vous_un_statut_refugie_ou_apatride__",
+        "operator": "equals",
+        "value": "false"
+      },
+      {
+        "property": "sous_categorie",
+        "operator": "equals",
+        "value": "Naturalisation par fratrie"
+      }
+    ]
+  },
+  {
+    "id": "copie_rectoverso_du_titre_de_sejour_en_cours_de_validite_du_conjoint_ou_concubin",
+    "name": "Copie recto-verso du titre de séjour en cours de validité du conjoint (ou concubin)",
+    "requiredProperty": "copie_rectoverso_du_titre_de_sejour_en_cours_de_validite_du_conjoint_ou_concubin_required",
+    "providedProperty": "copie_rectoverso_du_titre_de_sejour_en_cours_de_validite_du_conjoint_ou_concubin_provided",
+    "tab": [
+      "fraterie"
+    ],
+    "order": [
+      15
+    ],
+    "conditions": [
+      {
+        "property": "quelle_est_votre_situation_familliale",
+        "operator": "in",
+        "value": "Marié(e) (situation actuelle)"
+      },
+      {
+        "property": "sous_categorie",
+        "operator": "equals",
+        "value": "Naturalisation par fratrie"
+      }
+    ]
+  },
+  {
+    "id": "copie_de_tous_les_pages_des_3_derniers_avis_dimposition_ou_de_nonimposition",
+    "name": "Copie de tous les pages des 3 derniers avis d'imposition ou de non-imposition",
+    "requiredProperty": "copie_de_tous_les_pages_des_3_derniers_avis_dimposition_ou_de_nonimposition_required",
+    "providedProperty": "copie_de_tous_les_pages_des_3_derniers_avis_dimposition_ou_de_nonimposition_provided",
+    "tab": [
+      "fraterie"
+    ],
+    "order": [
+      16
+    ],
+    "conditions": [
+      {
+        "property": "quelle_est_votre_situation_familliale",
+        "operator": "in",
+        "value": "Marié(e) (situation actuelle)"
+      },
+      {
+        "property": "sous_categorie",
+        "operator": "equals",
+        "value": "Naturalisation par fratrie"
+      }
+    ]
+  },
+  {
+    "id": "doc_3_dernieres_fiches_de_paie_du_concubin_3_derniers_avis_dimpots_contrat_de_travail",
+    "name": "3 dernières fiches de paie du concubin + 3 derniers avis d'impôts + contrat de travail",
+    "requiredProperty": "doc_3_dernieres_fiches_de_paie_du_concubin_3_derniers_avis_dimpots_contrat_de_travail_required",
+    "providedProperty": "doc_3_dernieres_fiches_de_paie_du_concubin_3_derniers_avis_dimpots_contrat_de_travail_provided",
+    "tab": [
+      "fraterie"
+    ],
+    "order": [
+      24
+    ],
+    "conditions": [
+      {
+        "property": "quelle_est_votre_situation_familliale",
+        "operator": "in",
+        "value": "Concubinage (vie commune)"
+      },
+      {
+        "property": "quelle_est_votre_situation_familliale",
+        "operator": "in",
+        "value": "PACS"
+      },
+      {
+        "property": "sous_categorie",
+        "operator": "equals",
+        "value": "Naturalisation par fratrie"
+      }
+    ]
+  },
+  {
+    "id": "piece_didentite_de_lhebergeant",
+    "name": "Pièce d'identité de l'hébergeant",
+    "requiredProperty": "piece_didentite_de_lhebergeant_required",
+    "providedProperty": "piece_didentite_de_lhebergeant_provided",
+    "tab": [
+      "fraterie"
+    ],
+    "order": [
+      72
+    ],
+    "conditions": [
+      {
+        "property": "sous_categorie",
+        "operator": "equals",
+        "value": "Naturalisation par fratrie"
+      }
+    ]
+  },
+  {
+    "id": "formulaire_de_demande_cerfa_n1527704_2_exemplaires_signes_par_les_deux_epoux",
+    "name": "Formulaire de demande Cerfa n°1527704 (2 exemplaires, signés par les deux époux)",
+    "requiredProperty": "formulaire_de_demande_cerfa_n1527704_2_exemplaires_signes_par_les_deux_epoux_required",
+    "providedProperty": "formulaire_de_demande_cerfa_n1527704_2_exemplaires_signes_par_les_deux_epoux_provided",
+    "tab": [
+      "naturalisation_mariage"
+    ],
+    "order": [
+      1
+    ],
+    "conditions": [
+      {
+        "property": "sous_categorie",
+        "operator": "equals",
+        "value": "Naturalisation par mariage"
+      }
+    ]
+  },
+  {
+    "id": "timbre_fiscal_electronique_55_euros",
+    "name": "Timbre fiscal électronique (55 euros)",
+    "requiredProperty": "timbre_fiscal_electronique_55_euros_required",
+    "providedProperty": "timbre_fiscal_electronique_55_euros_provided",
+    "tab": [
+      "naturalisation_mariage"
+    ],
+    "order": [
+      2
+    ],
+    "conditions": [
+      {
+        "property": "sous_categorie",
+        "operator": "equals",
+        "value": "Naturalisation par mariage"
+      }
+    ]
+  },
+  {
+    "id": "photos_didentite_2_pour_le_demandeur_2_pour_le_conjoint",
+    "name": "Photos d'identité (2 pour le demandeur, 2 pour le conjoint)",
+    "requiredProperty": "photos_didentite_2_pour_le_demandeur_2_pour_le_conjoint_required",
+    "providedProperty": "photos_didentite_2_pour_le_demandeur_2_pour_le_conjoint_provided",
+    "tab": [
+      "naturalisation_mariage"
+    ],
+    "order": [
+      3
+    ],
+    "conditions": [
+      {
+        "property": "sous_categorie",
+        "operator": "equals",
+        "value": "Naturalisation par mariage"
+      }
+    ]
+  },
+  {
+    "id": "titre_de_sejour_2_photocopies_rv_en_cours_de_validite",
+    "name": "Titre de séjour (2 photocopies R/V en cours de validité)",
+    "requiredProperty": "titre_de_sejour_2_photocopies_rv_en_cours_de_validite_required",
+    "providedProperty": "titre_de_sejour_2_photocopies_rv_en_cours_de_validite_provided",
+    "tab": [
+      "naturalisation_mariage"
+    ],
+    "order": [
+      4
+    ],
+    "conditions": [
+      {
+        "property": "sous_categorie",
+        "operator": "equals",
+        "value": "Naturalisation par mariage"
+      }
+    ]
+  },
+  {
+    "id": "documents_etat_civil_des_parents_photocopie_acte_naissancemariagedeces_ou_livret",
+    "name": "Documents état civil des parents (Photocopie acte naissance/mariage/décès ou livret)",
+    "requiredProperty": "documents_etat_civil_des_parents_photocopie_acte_naissancemariagedeces_ou_livret_required",
+    "providedProperty": "documents_etat_civil_des_parents_photocopie_acte_naissancemariagedeces_ou_livret_provided",
+    "tab": [
+      "naturalisation_mariage"
+    ],
+    "order": [
+      5
+    ],
+    "conditions": [
+      {
+        "property": "sous_categorie",
+        "operator": "equals",
+        "value": "Naturalisation par mariage"
+      }
+    ]
+  },
+  {
+    "id": "acte_de_mariage_2_copies_integrales_originales_3_mois",
+    "name": "Acte de mariage (2 copies intégrales originales, < 3 mois)",
+    "requiredProperty": "acte_de_mariage_2_copies_integrales_originales_3_mois_required",
+    "providedProperty": "acte_de_mariage_2_copies_integrales_originales_3_mois_provided",
+    "tab": [
+      "naturalisation_mariage"
+    ],
+    "order": [
+      6
+    ],
+    "conditions": [
+      {
+        "property": "sous_categorie",
+        "operator": "equals",
+        "value": "Naturalisation par mariage"
+      }
+    ]
+  },
+  {
+    "id": "carte_nationale_didentite_2_photocopies_rv_du_conjoint",
+    "name": "Carte nationale d'identité (2 photocopies R/V) du conjoint",
+    "requiredProperty": "carte_nationale_didentite_2_photocopies_rv_du_conjoint_required",
+    "providedProperty": "carte_nationale_didentite_2_photocopies_rv_du_conjoint_provided",
+    "tab": [
+      "naturalisation_mariage"
+    ],
+    "order": [
+      8
+    ],
+    "conditions": [
+      {
+        "property": "sous_categorie",
+        "operator": "equals",
+        "value": "Naturalisation par mariage"
+      }
+    ]
+  },
+  {
+    "id": "documents_etat_civil_des_parents_copie_acte_naissancedeces_ou_livret_du_conjoint",
+    "name": "Documents état civil des parents (Copie acte naissance/décès ou livret) du conjoint",
+    "requiredProperty": "documents_etat_civil_des_parents_copie_acte_naissancedeces_ou_livret_du_conjoint_required",
+    "providedProperty": "documents_etat_civil_des_parents_copie_acte_naissancedeces_ou_livret_du_conjoint_provided",
+    "tab": [
+      "naturalisation_mariage"
+    ],
+    "order": [
+      9
+    ],
+    "conditions": [
+      {
+        "property": "sous_categorie",
+        "operator": "equals",
+        "value": "Naturalisation par mariage"
+      }
+    ]
+  },
+  {
+    "id": "avis_dimposition_2_copies_rv_4_dernieres_annees",
+    "name": "Avis d'imposition (2 copies R/V, 4 dernières années)",
+    "requiredProperty": "avis_dimposition_2_copies_rv_4_dernieres_annees_required",
+    "providedProperty": "avis_dimposition_2_copies_rv_4_dernieres_annees_provided",
+    "tab": [
+      "naturalisation_mariage"
+    ],
+    "order": [
+      10
+    ],
+    "conditions": [
+      {
+        "property": "sous_categorie",
+        "operator": "equals",
+        "value": "Naturalisation par mariage"
+      }
+    ]
+  },
+  {
+    "id": "preuves_de_vie_commune",
+    "name": "Preuves de vie commune",
+    "requiredProperty": "preuves_de_vie_commune_required",
+    "providedProperty": "preuves_de_vie_commune_provided",
+    "tab": [
+      "naturalisation_mariage"
+    ],
+    "order": [
+      11
+    ],
+    "conditions": [
+      {
+        "property": "sous_categorie",
+        "operator": "equals",
+        "value": "Naturalisation par mariage"
+      }
+    ]
+  },
+  {
+    "id": "copie_integrale_originale_de_lacte_de_naissance_du_lieu_de_naissance",
+    "name": "Copie intégrale originale de l'acte de naissance (du lieu de naissance)",
+    "requiredProperty": "copie_integrale_originale_de_lacte_de_naissance_du_lieu_de_naissance_required",
+    "providedProperty": "copie_integrale_originale_de_lacte_de_naissance_du_lieu_de_naissance_provided",
+    "tab": [
+      "naturalisation_mariage"
+    ],
+    "order": [
+      13
+    ],
+    "conditions": [
+      {
+        "property": "sous_categorie",
+        "operator": "equals",
+        "value": "Naturalisation par mariage"
+      }
+    ]
+  },
+  {
+    "id": "justificatif_de_3_ans_de_residence_en_france_depuis_le_mariage_ou_certificat_dinscription_",
+    "name": "Justificatif de 3 ans de résidence en France (depuis le mariage) OU Certificat d'inscription du conjoint (registre des Français établis hors de France)",
+    "requiredProperty": "justificatif_de_3_ans_de_residence_en_france_depuis_le_mariage_ou_certificat_dinscription__required",
+    "providedProperty": "justificatif_de_3_ans_de_residence_en_france_depuis_le_mariage_ou_certificat_dinscription__provided",
+    "tab": [
+      "naturalisation_mariage"
+    ],
+    "order": [
+      14
+    ],
+    "conditions": [
+      {
+        "property": "sous_categorie",
+        "operator": "equals",
+        "value": "Naturalisation par mariage"
+      }
+    ]
+  },
+  {
+    "id": "copie_de_la_transcription_delivree_par_les_autorites_francaises_3_mois",
+    "name": "Copie de la transcription (délivrée par les autorités françaises, < 3 mois)",
+    "requiredProperty": "copie_de_la_transcription_delivree_par_les_autorites_francaises_3_mois_required",
+    "providedProperty": "copie_de_la_transcription_delivree_par_les_autorites_francaises_3_mois_provided",
+    "tab": [
+      "naturalisation_mariage"
+    ],
+    "order": [
+      15
+    ],
+    "conditions": [
+      {
+        "property": "sous_categorie",
+        "operator": "equals",
+        "value": "Naturalisation par mariage"
+      }
+    ]
+  },
+  {
+    "id": "copies_integrales_originales_des_actes_de_mariage_et_documents_prouvant_la_dissolution_jug",
+    "name": "Copies intégrales originales des actes de mariage ET Documents prouvant la dissolution (jugement divorce, acte de décès)",
+    "requiredProperty": "copies_integrales_originales_des_actes_de_mariage_et_documents_prouvant_la_dissolution_jug_required",
+    "providedProperty": "copies_integrales_originales_des_actes_de_mariage_et_documents_prouvant_la_dissolution_jug_provided",
+    "tab": [
+      "naturalisation_mariage"
+    ],
+    "order": [
+      16
+    ],
+    "conditions": [
+      {
+        "property": "sous_categorie",
+        "operator": "equals",
+        "value": "Naturalisation par mariage"
+      }
+    ]
+  },
+  {
+    "id": "doc_2_copies_integrales_des_actes_de_naissance_pour_tous_les_enfants",
+    "name": "2 copies intégrales des actes de naissance (pour tous les enfants)",
+    "requiredProperty": "doc_2_copies_integrales_des_actes_de_naissance_pour_tous_les_enfants_required",
+    "providedProperty": "doc_2_copies_integrales_des_actes_de_naissance_pour_tous_les_enfants_provided",
+    "tab": [
+      "naturalisation_mariage"
+    ],
+    "order": [
+      17
+    ],
+    "conditions": [
+      {
+        "property": "sous_categorie",
+        "operator": "equals",
+        "value": "Naturalisation par mariage"
+      }
+    ]
+  },
+  {
+    "id": "en_plus_de_lacte_de_naissance_justificatifs_de_residence_habituelle_certificat_scolarite_c",
+    "name": "(En plus de l'acte de naissance) Justificatifs de résidence habituelle (certificat scolarité, crèche, jugement de garde, etc.)",
+    "requiredProperty": "en_plus_de_lacte_de_naissance_justificatifs_de_residence_habituelle_certificat_scolarite_c_required",
+    "providedProperty": "en_plus_de_lacte_de_naissance_justificatifs_de_residence_habituelle_certificat_scolarite_c_provided",
+    "tab": [
+      "naturalisation_mariage"
+    ],
+    "order": [
+      18
+    ],
+    "conditions": [
+      {
+        "property": "sous_categorie",
+        "operator": "equals",
+        "value": "Naturalisation par mariage"
+      }
+    ]
+  },
+  {
+    "id": "original_de_lextrait_du_casier_judiciaire_etranger_des_pays_de_residence_des_10_dernieres_",
+    "name": "Original de l'extrait du casier judiciaire étranger (des pays de résidence des 10 dernières années) + traduction + légalisation/apostille",
+    "requiredProperty": "original_de_lextrait_du_casier_judiciaire_etranger_des_pays_de_residence_des_10_dernieres__required",
+    "providedProperty": "original_de_lextrait_du_casier_judiciaire_etranger_des_pays_de_residence_des_10_dernieres__provided",
+    "tab": [
+      "naturalisation_mariage"
+    ],
+    "order": [
+      19
+    ],
+    "conditions": [
+      {
+        "property": "sous_categorie",
+        "operator": "equals",
+        "value": "Naturalisation par mariage"
+      }
+    ]
+  }
+]

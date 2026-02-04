@@ -1,0 +1,22 @@
+[
+  {
+    "id": "decret",
+    "title": "Décret",
+    "description": "Documents liés au décret"
+  },
+  {
+    "id": "naturalisation_mariage",
+    "title": "Naturalisation Mariage",
+    "description": "Documents liés à la naturalisation par mariage"
+  },
+  {
+    "id": "autre",
+    "title": "Autre",
+    "description": "Autres documents"
+  },
+  {
+    "id": "fraterie",
+    "title": "Naturalisation par fratrie",
+    "description": "Documents liés à la naturalisation par fratrie"
+  }
+]
