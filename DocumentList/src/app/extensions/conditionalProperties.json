@@ -9,9 +9,15 @@
   "quel_est_votre_lien_avec_le_descendant_francais__",
   "avez_vous_fait_votre_scolarite_formation_en_france__",
   "quelle_est_votre_situation_professionnel_aes__",
-  "type_dentree_en_france__",
+  "type_d_entree_en_france",
   "quel_est_votre_lien_avec_le_refugie__",
   "vous_etes_entree_en_france_en_tant_que__",
-  "revenu_percu_par_letudiant__"
+  "revenu_percu_par_letudiant__",
+  "etes_vous_marie_depuis_moins_de_5_ans__",
+  "votre_mariage_a_t_il_ete_celebre_a_l_etranger__",
+  "l_un_des_epoux__ou_les_deux__a_t_il_eu_des_unions_anterieures__",
+  "avez_vous_des_enfants__mineurs_ou_majeurs___",
+  "avez_vous_des_enfants_mineurs_etrangers_residant_avec_vous__",
+  "etes_vous_entre_en_france_il_y_a_moins_de_10_ans__"
 ]
 

@@ -54,22 +54,29 @@ interface DocumentCondition {
 }
 
 /**
+ * Tab-specific configuration for a document.
+ * Each tab can have its own order and conditions.
+ */
+interface TabConfig {
+  order: number;
+  conditions: DocumentCondition[];
+}
+
+/**
  * Document configuration loaded from JSON.
- * Defines the structure and requirements for each document type.
+ * Uses tabConfig for per-tab conditions and ordering.
  */
 interface DocumentConfig {
   id: string;
   name: string;
   requiredProperty: string;
   providedProperty: string;
-  tab: string | string[];
-  order?: number | number[];
-  conditions: DocumentCondition[];
+  tabConfig: Record<string, TabConfig>;
 }
 
 /**
  * Document state at runtime.
- * Includes current required/provided status and condition evaluation.
+ * Includes current required/provided status and per-tab configuration.
  */
 interface Document {
   id: string;
@@ -78,9 +85,7 @@ interface Document {
   provided: boolean;
   requiredProperty: string;
   providedProperty: string;
-  tab: string | string[];
-  order?: number | number[];
-  conditions: DocumentCondition[];
+  tabConfig: Record<string, TabConfig>;
 }
 
 const DOCUMENTS_CONFIG: DocumentConfig[] = documentsConfig as DocumentConfig[];
@@ -93,9 +98,7 @@ const INITIAL_DOCUMENTS: Document[] = DOCUMENTS_CONFIG.map(config => ({
   provided: false,
   requiredProperty: config.requiredProperty,
   providedProperty: config.providedProperty,
-  tab: config.tab,
-  order: config.order,
-  conditions: config.conditions
+  tabConfig: config.tabConfig || {}
 }));
 
 const COMPLETION_PROPERTY = 'documents_completed';
@@ -109,36 +112,52 @@ const DOSSIER_STATES = {
 };
 
 /**
- * Helper function to get the tab value (handles both string and array)
- */
-const getTabValue = (tab: string | string[]): string => {
-  return Array.isArray(tab) ? tab[0] : tab;
-};
-
-/**
- * Helper function to check if a document belongs to a specific tab
+ * Helper function to check if a document belongs to a specific tab.
+ * Uses the new tabConfig structure where each document has per-tab configuration.
  */
 const documentBelongsToTab = (doc: Document, tabId: string): boolean => {
-  if (Array.isArray(doc.tab)) {
-    return doc.tab.includes(tabId);
-  }
-  return doc.tab === tabId;
+  return doc.tabConfig && tabId in doc.tabConfig;
 };
 
 /**
- * Helper function to get the order for a document in a specific tab
+ * Helper function to get the order for a document in a specific tab.
+ * Returns the order from tabConfig or 9999 if not found.
  */
 const getOrderForTab = (doc: Document, tabId: string): number => {
-  if (Array.isArray(doc.order)) {
-    const tabArray = Array.isArray(doc.tab) ? doc.tab : [doc.tab];
-    const tabIndex = tabArray.indexOf(tabId);
-    if (tabIndex >= 0 && tabIndex < doc.order.length) {
-      return doc.order[tabIndex];
+  return doc.tabConfig?.[tabId]?.order ?? 9999;
+};
+
+/**
+ * Helper function to get conditions for a document in a specific tab.
+ * Returns the conditions array from tabConfig or empty array if not found.
+ */
+const getConditionsForTab = (doc: Document, tabId: string): DocumentCondition[] => {
+  return doc.tabConfig?.[tabId]?.conditions || [];
+};
+
+/**
+ * Helper function to get all conditions across all tabs for a document.
+ * Used when checking if any conditions match regardless of tab.
+ */
+const getAllConditions = (doc: Document): DocumentCondition[] => {
+  if (!doc.tabConfig) return [];
+  const allConditions: DocumentCondition[] = [];
+  Object.values(doc.tabConfig).forEach(config => {
+    if (config.conditions) {
+      allConditions.push(...config.conditions);
     }
-    // If tab not found in array, return first order or 9999
-    return doc.order[0] ?? 9999;
-  }
-  return doc.order ?? 9999;
+  });
+  return allConditions;
+};
+
+/**
+ * Helper function to get the first tab a document belongs to.
+ * Returns null if document has no tab configuration.
+ */
+const getFirstTab = (doc: Document): string | null => {
+  if (!doc.tabConfig) return null;
+  const tabs = Object.keys(doc.tabConfig);
+  return tabs.length > 0 ? tabs[0] : null;
 };
 
 /**
@@ -192,6 +211,8 @@ const Extension = ({ context, actions }: ExtensionProps) => {
   const [natureDemande, setNatureDemande] = useState<string>('');
   const [isRefugieApatride, setIsRefugieApatride] = useState<boolean>(false);
   const [refugieRaw, setRefugieRaw] = useState<string>('');
+  const [hasConfigError, setHasConfigError] = useState<boolean>(false);
+  const [isAutoSaving, setIsAutoSaving] = useState<boolean>(false);
 
   /**
    * Checks if all required documents have been provided.
@@ -246,15 +267,16 @@ const Extension = ({ context, actions }: ExtensionProps) => {
     const missingDocs = docs
       .filter(doc => {
         const conditionsMet = checkDocumentConditions(doc, propsToUse);
-        
+        const hasConditions = getAllConditions(doc).length > 0;
+
         // A document is required if manually marked as required OR if conditions are met
-        const isRequired = doc.required || (doc.conditions && doc.conditions.length > 0 ? conditionsMet : false);
-        
+        const isRequired = doc.required || (hasConditions ? conditionsMet : false);
+
         return isRequired && !doc.provided;
       })
       .map(doc => doc.name)
       .filter(name => name.trim() !== '');
-    
+
     if (missingDocs.length === 0) {
       return '';
     }
@@ -267,19 +289,20 @@ const Extension = ({ context, actions }: ExtensionProps) => {
    */
   const getMissingDocumentsList = (docs: Document[], properties?: Record<string, any>): string[] => {
     const propsToUse = properties || recordProperties;
-    
+
     const missingDocs = docs
       .filter(doc => {
         const conditionsMet = checkDocumentConditions(doc, propsToUse);
-        
+        const hasConditions = getAllConditions(doc).length > 0;
+
         // A document is required if manually marked as required OR if conditions are met
-        const isRequired = doc.required || (doc.conditions && doc.conditions.length > 0 ? conditionsMet : false);
-        
+        const isRequired = doc.required || (hasConditions ? conditionsMet : false);
+
         return isRequired && !doc.provided;
       })
       .map(doc => doc.name)
       .filter(name => name.trim() !== '');
-    
+
     return missingDocs;
   };
 
@@ -321,16 +344,57 @@ const Extension = ({ context, actions }: ExtensionProps) => {
       return false;
     }
     
+    // Skip if we know there's a configuration issue
+    if (hasConfigError) {
+      return false;
+    }
+    
     try {
-      await hubspot.serverless('updateCompletionStatus', {
+      const response = await hubspot.serverless('updateCompletionStatus', {
         parameters: {
           missingDoc: missingDocs,
           hs_object_id: objectId.toString()
         } as any
       });
       
+      if (response?.status === 'error') {
+        const errorMsg = response.message || '';
+        
+        // Check if it's a configuration error (API key, secrets, etc.)
+        if (errorMsg.includes('API key') || errorMsg.includes('secret') || errorMsg.includes('token')) {
+          if (!hasConfigError) {
+            console.warn('[DocumentList] updateMissingDocProperty: Configuration issue detected -', errorMsg);
+            console.warn('[DocumentList] updateMissingDocProperty: Please check HubSpot app secrets configuration. Updates will be skipped.');
+            setHasConfigError(true);
+          }
+          return false;
+        }
+        
+        // Log other errors
+        console.error('[DocumentList] updateMissingDocProperty: ERROR -', errorMsg);
+        return false;
+      }
+      
+      // Success - clear config error flag if it was set
+      if (hasConfigError) {
+        setHasConfigError(false);
+      }
+      
       return true;
     } catch (err) {
+      const errorMsg = err?.message || String(err);
+      
+      // Check if it's a configuration error
+      if (errorMsg.includes('API key') || errorMsg.includes('secret') || errorMsg.includes('token')) {
+        if (!hasConfigError) {
+          console.warn('[DocumentList] updateMissingDocProperty: Configuration issue detected -', errorMsg);
+          console.warn('[DocumentList] updateMissingDocProperty: Please check HubSpot app secrets configuration. Updates will be skipped.');
+          setHasConfigError(true);
+        }
+        return false;
+      }
+      
+      console.error('[DocumentList] updateMissingDocProperty: EXCEPTION -', errorMsg);
       return false;
     }
   };
@@ -343,11 +407,12 @@ const Extension = ({ context, actions }: ExtensionProps) => {
     const objectId = context.crm?.objectId;
     
     if (!objectId) {
+      console.error('[DocumentList] updateStatusProperties: No object ID');
       return false;
     }
     
     try {
-      await hubspot.serverless('updateCompletionStatus', {
+      const response = await hubspot.serverless('updateCompletionStatus', {
         parameters: {
           completionStatus: completionStatus,
           dossierState: dossierState,
@@ -356,9 +421,59 @@ const Extension = ({ context, actions }: ExtensionProps) => {
         }
       });
       
+      if (response?.status === 'error') {
+        const errorMsg = response.message || '';
+        
+        // Check if it's a configuration error
+        if (errorMsg.includes('API key') || errorMsg.includes('secret') || errorMsg.includes('token')) {
+          if (!hasConfigError) {
+            console.warn('[DocumentList] updateStatusProperties: Configuration issue detected -', errorMsg);
+            console.warn('[DocumentList] updateStatusProperties: Please check HubSpot app secrets configuration.');
+            setHasConfigError(true);
+          }
+          setError('Configuration error: Please check HubSpot app secrets');
+          return false;
+        }
+        
+        console.error('[DocumentList] updateStatusProperties: ERROR -', errorMsg);
+        setError(errorMsg || 'Error updating status properties');
+        return false;
+      }
+      
+      if (response?.status === 'success' || response?.status === 'partial_success') {
+        console.log('[DocumentList] updateStatusProperties: SUCCESS -', {
+          completionStatus,
+          dossierState,
+          missingDocsCount: missingDocs ? (missingDocs.match(/<li>/g) || []).length : 0
+        });
+        
+        // Clear config error flag on success
+        if (hasConfigError) {
+          setHasConfigError(false);
+        }
+        
+        return true;
+      }
+      
+      // If no status field, assume success (backward compatibility)
+      console.log('[DocumentList] updateStatusProperties: SUCCESS (backward compatibility)');
       return true;
     } catch (err) {
-      setError(err?.message || 'Error updating status properties');
+      const errorMsg = err?.message || String(err);
+      
+      // Check if it's a configuration error
+      if (errorMsg.includes('API key') || errorMsg.includes('secret') || errorMsg.includes('token')) {
+        if (!hasConfigError) {
+          console.warn('[DocumentList] updateStatusProperties: Configuration issue detected -', errorMsg);
+          console.warn('[DocumentList] updateStatusProperties: Please check HubSpot app secrets configuration.');
+          setHasConfigError(true);
+        }
+        setError('Configuration error: Please check HubSpot app secrets');
+        return false;
+      }
+      
+      console.error('[DocumentList] updateStatusProperties: EXCEPTION -', errorMsg);
+      setError(errorMsg || 'Error updating status properties');
       return false;
     }
   };
@@ -373,6 +488,18 @@ const fetchDocumentValues = async () => {
   setLoading(true);
   setError('');
   const objectId = context.crm?.objectId;
+  
+  if (!objectId) {
+    setError('Object ID not found in context');
+    setLoading(false);
+    return;
+  }
+  
+  // Skip if we know there's a configuration issue
+  if (hasConfigError) {
+    setLoading(false);
+    return;
+  }
   
     const propertyNames: string[] = [];
     // Always include sous_categorie for tab selection
@@ -397,12 +524,6 @@ const fetchDocumentValues = async () => {
       }
     });
   
-  if (!objectId) {
-    setError('Object ID not found in context');
-    setLoading(false);
-    return;
-  }
-  
   try {
     const response = await hubspot.serverless('getDocumentValues', {
       propertiesToSend: ['hs_object_id'],
@@ -413,19 +534,55 @@ const fetchDocumentValues = async () => {
       }
     });
     
+    // Check if response contains an error (e.g., missing token)
+    if (response?.error) {
+      const errorMsg = response.error || '';
+      
+      // Check if it's a token/secret error
+      if (errorMsg.includes('token') || errorMsg.includes('API key') || errorMsg.includes('secret') || errorMsg.includes('access token')) {
+        // Only show warning once, and only if we haven't already logged it
+        if (!hasConfigError) {
+          // Check if we're in a development context (no object ID in context)
+          const isDevContext = !context.crm?.objectId;
+          
+          if (isDevContext) {
+            // During development/compilation, this is expected
+            console.warn('[DocumentList] fetchDocumentValues: Secrets not available during development.');
+            console.warn('[DocumentList] fetchDocumentValues: This is expected. The app will work when deployed with secrets configured.');
+          } else {
+            // In production, this is a real configuration issue
+            console.error('[DocumentList] fetchDocumentValues: Configuration issue detected -', errorMsg);
+            console.error('[DocumentList] fetchDocumentValues: Please configure HubSpot app secrets (hubspot_api_key or sandbox_hubspot_api_key)');
+            setError('Configuration error: Please check HubSpot app secrets');
+          }
+          setHasConfigError(true);
+        }
+        setLoading(false);
+        return;
+      }
+      
+      // Other errors - clear config error flag if it's not a config issue
+      if (hasConfigError) {
+        setHasConfigError(false);
+      }
+      setError(errorMsg || 'Error fetching document values');
+      setLoading(false);
+      return;
+    }
+    
+    // Success - clear config error flag
+    if (hasConfigError) {
+      setHasConfigError(false);
+      setError('');
+    }
+    
     const properties = response || {};
-    console.log('[DocumentList] fetchDocumentValues: received properties keys:', Object.keys(properties));
-    console.log('[DocumentList] fetchDocumentValues: sous_categorie direct access:', properties['sous_categorie']);
-    console.log('[DocumentList] fetchDocumentValues: all sous_categorie variations:', 
-      Object.keys(properties).filter(k => k.toLowerCase().includes('sous')));
     
     const getPropValue = (obj: any, needle: string) => {
       if (!obj) return undefined;
       const lower = needle.toLowerCase();
       const hitKey = Object.keys(obj).find(k => k.toLowerCase() === lower || k.toLowerCase().includes(lower));
-      const value = hitKey ? obj[hitKey] : undefined;
-      console.log('[DocumentList] getPropValue: searching for', needle, 'found key:', hitKey, 'value:', value);
-      return value;
+      return hitKey ? obj[hitKey] : undefined;
     };
 
     const completionStatus = toBool(properties[COMPLETION_PROPERTY]);
@@ -438,7 +595,6 @@ const fetchDocumentValues = async () => {
 
     // Try multiple ways to get sous_categorie
     let nd = properties['sous_categorie'];
-    console.log('[DocumentList] fetchDocumentValues: direct property access:', nd, 'type:', typeof nd);
     
     if (!nd || nd === '' || nd === null || nd === undefined) {
       nd = getPropValue(properties, 'sous_categorie');
@@ -450,22 +606,10 @@ const fetchDocumentValues = async () => {
       );
       if (sousKeys.length > 0) {
         nd = properties[sousKeys[0]];
-        console.log('[DocumentList] fetchDocumentValues: found sous_categorie via variation:', sousKeys[0], 'value:', nd);
       }
     }
     
-    // Log all property values that might be related
-    console.log('[DocumentList] fetchDocumentValues: All property values (first 20):', 
-      Object.entries(properties).slice(0, 20).map(([k, v]) => `${k}: ${v}`));
-    
     nd = (nd || '').toString().trim();
-    console.log('[DocumentList] fetchDocumentValues: sous_categorie final value:', nd, 'length:', nd.length);
-    
-    // TEMPORARY: If empty, check if we should use a test value
-    // Remove this after debugging
-    if (!nd && process.env.NODE_ENV === 'development') {
-      console.warn('[DocumentList] sous_categorie is empty - property may not be set in HubSpot');
-    }
     
     setNatureDemande(nd);
     
@@ -501,29 +645,58 @@ const fetchDocumentValues = async () => {
       const providedProp = doc.providedProperty;
       const requiredRaw = properties[requiredProp];
       const providedRaw = properties[providedProp];
+        // toBool converts undefined/null/'' to false, 'true'/'false' strings to boolean
         const requiredFromHubSpot = toBool(requiredRaw);
       const provided = toBool(providedRaw);
-      const conditionsMet = checkDocumentConditions(doc, properties);
       
-        let required: boolean;
-        if (doc.conditions && doc.conditions.length > 0) {
-          if (conditionsMet) {
-        required = true;
-          } else {
-            required = requiredFromHubSpot;
-          }
-        } else {
-          required = requiredFromHubSpot;
+      // Debug logging for documents that should be required
+      if (doc.id === 'timbre_fiscal_de_55') {
+        console.log(`[fetchDocumentValues] Document "${doc.name}":`);
+        console.log(`[fetchDocumentValues]   requiredRaw from HubSpot: "${requiredRaw}" (type: ${typeof requiredRaw})`);
+        console.log(`[fetchDocumentValues]   requiredFromHubSpot: ${requiredFromHubSpot}`);
+        console.log(`[fetchDocumentValues]   providedRaw from HubSpot: "${providedRaw}" (type: ${typeof providedRaw})`);
+        console.log(`[fetchDocumentValues]   provided: ${provided}`);
+        console.log(`[fetchDocumentValues]   Property exists in properties: ${requiredProp in properties}`);
       }
       
+      // Log specific document for debugging
+      if (doc.id.includes('document_justifiant_de_la_date_et_du_lieu_de_naissance')) {
+        console.log(`[DocumentList] fetchDocumentValues: Document "${doc.name}"`);
+        console.log(`[DocumentList] fetchDocumentValues: requiredRaw="${requiredRaw}" (type: ${typeof requiredRaw}) -> requiredFromHubSpot=${requiredFromHubSpot}`);
+        console.log(`[DocumentList] fetchDocumentValues: providedRaw="${providedRaw}" (type: ${typeof providedRaw}) -> provided=${provided}`);
+        console.log(`[DocumentList] fetchDocumentValues: Property names - required: "${requiredProp}", provided: "${providedProp}"`);
+        console.log(`[DocumentList] fetchDocumentValues: Properties exist? required: ${requiredProp in properties}, provided: ${providedProp in properties}`);
+      }
+      
+      const conditionsMet = checkDocumentConditions(doc, properties);
+      const hasConditions = getAllConditions(doc).length > 0;
+
+      let required: boolean;
+      if (hasConditions) {
+        if (conditionsMet) {
+          required = true;
+        } else {
+          // If conditions are not met:
+          // - If document is provided, keep the required status (user can manage in "autre" tab)
+          // - If document is NOT provided, reset required to false
+          if (provided) {
+            required = requiredFromHubSpot; // Keep user's choice if provided
+          } else {
+            required = false; // Reset to false if not provided
+          }
+        }
+      } else {
+        required = requiredFromHubSpot;
+      }
+
       return {
         ...doc,
         required,
-          provided,
-          _requiredFromHubSpot: requiredFromHubSpot,
-          _shouldBeRequired: doc.conditions && doc.conditions.length > 0 
-            ? (conditionsMet ? true : requiredFromHubSpot)
-            : requiredFromHubSpot
+        provided,
+        _requiredFromHubSpot: requiredFromHubSpot,
+        _shouldBeRequired: hasConditions
+          ? (conditionsMet ? true : requiredFromHubSpot)
+          : requiredFromHubSpot
       };
     });
     
@@ -541,38 +714,8 @@ const fetchDocumentValues = async () => {
       setInitialDossierState(calculatedDossierState);
     }
     
-      let needsSave = false;
-      const docsNeedingUpdate = updatedDocuments.filter(doc => {
-        if (doc.conditions && doc.conditions.length > 0) {
-          const conditionsMet = checkDocumentConditions(doc, properties);
-          if (!conditionsMet) {
-            return false;
-          }
-          const requiredFromHubSpot = (doc as any)._requiredFromHubSpot ?? false;
-          const shouldBeRequired = (doc as any)._shouldBeRequired ?? false;
-          if (requiredFromHubSpot !== shouldBeRequired) {
-            needsSave = true;
-            return true;
-          }
-        }
-        return false;
-      });
-    
-      if (needsSave && docsNeedingUpdate.length > 0) {
-        const correctedDocs = updatedDocuments;
-        setDocuments(correctedDocs);
-        setInitialDocuments([...correctedDocs]);
-      
-        (async () => {
-          try {
-            await saveDocumentChanges(correctedDocs, true);
-          } catch (err) {
-            // Silent fail for auto-save
-          }
-        })();
-      
-        updatedDocuments = correctedDocs;
-      }
+      // REMOVED AUTO-SAVE LOGIC - It was causing infinite loops
+      // Users will need to manually save changes using the "Enregistrer les modifications" button
     
       const missingDocs = calculateMissingDocuments(updatedDocuments, properties);
       updateMissingDocProperty(missingDocs).catch(() => {});
@@ -592,28 +735,29 @@ const fetchDocumentValues = async () => {
    */
 const handleCheckboxToggle = (documentId: string, field: 'required' | 'provided') => {
   return (checked: boolean, value: string) => {
-  setDocuments(prevDocs => {
-    const newDocs = prevDocs.map(doc => {
-      if (doc.id === documentId) {
+    setDocuments(prevDocs => {
+      const newDocs = prevDocs.map(doc => {
+        if (doc.id === documentId) {
           if (field === 'required') {
             const conditionsMet = checkDocumentConditions(doc, recordProperties);
-              const isAutreTab = selectedTab === 'autre';
-              
-              if (doc.conditions && doc.conditions.length > 0 && !isAutreTab) {
-                if (conditionsMet && !checked) {
-              return doc;
-            }
-                if (!conditionsMet && checked) {
-                  return doc;
-                }
-                return { ...doc, required: conditionsMet };
+            const hasConditions = getAllConditions(doc).length > 0;
+            const isAutreTab = selectedTab === 'autre';
+
+            if (hasConditions && !isAutreTab) {
+              if (conditionsMet && !checked) {
+                return doc;
               }
-              return { ...doc, [field]: checked };
+              if (!conditionsMet && checked) {
+                return doc;
+              }
+              return { ...doc, required: conditionsMet };
+            }
+            return { ...doc, [field]: checked };
           }
           return { ...doc, [field]: checked };
-      }
-      return doc;
-    });
+        }
+        return doc;
+      });
     
     const newCompletionStatus = checkCompletion(newDocs);
     const newDossierState = calculateDossierState(newDocs);
@@ -670,13 +814,94 @@ const checkForChanges = () => {
       const docs = docsToSave || documents;
     const documentProperties = {};
     
+    // Get currently visible documents to prioritize their values when there are duplicates
+    // Only if we have the necessary state (recordProperties, selectedTab, etc.)
+    let visibleDocIds = new Set<string>();
+    try {
+      const visibleDocs = getVisibleDocuments();
+      visibleDocIds = new Set(visibleDocs.map(d => d.id));
+    } catch (err) {
+      // If getVisibleDocuments fails (e.g., during initial load), just use all docs
+      console.warn('[saveDocumentChanges] Could not get visible documents, using all documents:', err);
+      visibleDocIds = new Set(docs.map(d => d.id));
+    }
+    
+    // Track which properties we've seen to detect duplicates
+    // When duplicates exist, prefer the value from a visible document
+    const seenProperties = new Map<string, { docId: string; docName: string; value: any; isVisible: boolean }>();
+    
       docs.forEach((doc) => {
       const requiredProp = doc.requiredProperty;
       const providedProp = doc.providedProperty;
         const isRequired = doc.required;
-      documentProperties[requiredProp] = isRequired;
+      const isVisible = visibleDocIds.has(doc.id);
+      
+      // Handle duplicate properties - prefer visible documents
+      if (seenProperties.has(requiredProp)) {
+        const previous = seenProperties.get(requiredProp)!;
+        // If current doc is visible and previous wasn't, use current
+        // If both are visible or both aren't, use the last one
+        if (isVisible && !previous.isVisible) {
+          console.warn(`[DocumentList] saveDocumentChanges: Duplicate required property "${requiredProp}" - using VISIBLE document`);
+          console.warn(`[DocumentList] saveDocumentChanges: Previous (not visible): doc="${previous.docName}" (${previous.docId}) = ${previous.value}`);
+          console.warn(`[DocumentList] saveDocumentChanges: New (visible): doc="${doc.name}" (${doc.id}) = ${isRequired}`);
+          seenProperties.set(requiredProp, { docId: doc.id, docName: doc.name, value: isRequired, isVisible });
+          documentProperties[requiredProp] = isRequired;
+        } else if (!isVisible && previous.isVisible) {
+          console.warn(`[DocumentList] saveDocumentChanges: Duplicate required property "${requiredProp}" - keeping VISIBLE document value`);
+          // Keep previous value, don't update
+        } else {
+          // Both same visibility, use last one
+          console.warn(`[DocumentList] saveDocumentChanges: Duplicate required property "${requiredProp}" - using last value`);
+          seenProperties.set(requiredProp, { docId: doc.id, docName: doc.name, value: isRequired, isVisible });
+          documentProperties[requiredProp] = isRequired;
+        }
+      } else {
+        seenProperties.set(requiredProp, { docId: doc.id, docName: doc.name, value: isRequired, isVisible });
+        documentProperties[requiredProp] = isRequired;
+      }
+      
+      if (seenProperties.has(providedProp)) {
+        const previous = seenProperties.get(providedProp)!;
+        // If current doc is visible and previous wasn't, use current
+        // If both are visible or both aren't, use the last one
+        if (isVisible && !previous.isVisible) {
+          console.warn(`[DocumentList] saveDocumentChanges: Duplicate provided property "${providedProp}" - using VISIBLE document`);
+          console.warn(`[DocumentList] saveDocumentChanges: Previous (not visible): doc="${previous.docName}" (${previous.docId}) = ${previous.value}`);
+          console.warn(`[DocumentList] saveDocumentChanges: New (visible): doc="${doc.name}" (${doc.id}) = ${doc.provided}`);
+          seenProperties.set(providedProp, { docId: doc.id, docName: doc.name, value: doc.provided, isVisible });
+          documentProperties[providedProp] = doc.provided;
+        } else if (!isVisible && previous.isVisible) {
+          console.warn(`[DocumentList] saveDocumentChanges: Duplicate provided property "${providedProp}" - keeping VISIBLE document value`);
+          // Keep previous value, don't update
+        } else {
+          // Both same visibility, use last one
+          console.warn(`[DocumentList] saveDocumentChanges: Duplicate provided property "${providedProp}" - using last value`);
+          seenProperties.set(providedProp, { docId: doc.id, docName: doc.name, value: doc.provided, isVisible });
+          documentProperties[providedProp] = doc.provided;
+        }
+      } else {
+        seenProperties.set(providedProp, { docId: doc.id, docName: doc.name, value: doc.provided, isVisible });
         documentProperties[providedProp] = doc.provided;
+      }
+        
+        // Log specific document for debugging
+        if (doc.id.includes('document_justifiant_de_la_date_et_du_lieu_de_naissance')) {
+          console.log(`[DocumentList] saveDocumentChanges: Document "${doc.name}" (id: ${doc.id})`);
+          console.log(`[DocumentList] saveDocumentChanges: required=${isRequired} (property: ${requiredProp}), visible=${isVisible}`);
+          console.log(`[DocumentList] saveDocumentChanges: provided=${doc.provided} (property: ${providedProp}), visible=${isVisible}`);
+        }
       });
+      
+      // Log final values for the specific property
+      const targetProp = 'document_justifiant_de_la_date_et_du_lieu_de_naissance_de_votre_pere_et_votre_mere_et_de_l_provided';
+      if (targetProp in documentProperties) {
+        const finalInfo = seenProperties.get(targetProp);
+        console.log(`[DocumentList] saveDocumentChanges: FINAL value for ${targetProp} = ${documentProperties[targetProp]} (type: ${typeof documentProperties[targetProp]})`);
+        if (finalInfo) {
+          console.log(`[DocumentList] saveDocumentChanges: Final value comes from doc "${finalInfo.docName}" (${finalInfo.docId}), visible=${finalInfo.isVisible}`);
+        }
+      }
   
     const objectId = context.crm?.objectId;
     
@@ -686,6 +911,9 @@ const checkForChanges = () => {
       return;
     }
     
+    console.log('[DocumentList] saveDocumentChanges: Sending update for', Object.keys(documentProperties).length, 'properties');
+    console.log('[DocumentList] saveDocumentChanges: Sample properties:', Object.entries(documentProperties).slice(0, 5).map(([k, v]) => `${k}=${v}`).join(', '));
+    
     const docResponse = await hubspot.serverless('updateDocuments', {
       parameters: {
         documents: documentProperties,
@@ -693,13 +921,45 @@ const checkForChanges = () => {
         }
       });
     
+    console.log('[DocumentList] saveDocumentChanges: Response status:', docResponse?.status);
+    console.log('[DocumentList] saveDocumentChanges: Response data:', docResponse?.data ? 'Received' : 'No data');
+    
       if (docResponse?.status === 'error') {
         const errorMsg = docResponse.message || '';
+        console.error('[DocumentList] saveDocumentChanges: ERROR response -', errorMsg);
+        console.error('[DocumentList] saveDocumentChanges: Full response:', JSON.stringify(docResponse, null, 2));
+        
         if (errorMsg.includes('does not exist') || errorMsg.includes('PROPERTY_DOESNT_EXIST')) {
-          // Continue - some properties may not exist
+          console.warn('[DocumentList] saveDocumentChanges: Some properties do not exist, continuing...');
+        } else if (errorMsg.includes('API key') || errorMsg.includes('secret') || errorMsg.includes('token')) {
+          if (!hasConfigError) {
+            console.warn('[DocumentList] saveDocumentChanges: Configuration issue detected -', errorMsg);
+            console.warn('[DocumentList] saveDocumentChanges: Please check HubSpot app secrets configuration.');
+            setHasConfigError(true);
+          }
+          throw new Error('Configuration error: Please check HubSpot app secrets');
         } else {
+          console.error('[DocumentList] saveDocumentChanges: Update failed -', errorMsg);
           throw new Error(docResponse.message || 'Failed to update documents');
         }
+      }
+      
+      if (docResponse?.status === 'success') {
+        console.log('[DocumentList] saveDocumentChanges: SUCCESS - Updated', Object.keys(documentProperties).length, 'document properties');
+        
+        // Clear config error flag on success
+        if (hasConfigError) {
+          setHasConfigError(false);
+        }
+      } else if (docResponse?.status !== 'error') {
+        console.warn('[DocumentList] saveDocumentChanges: Unexpected response status:', docResponse?.status);
+        console.warn('[DocumentList] saveDocumentChanges: Full response:', JSON.stringify(docResponse, null, 2));
+        throw new Error(`Unexpected response status: ${docResponse?.status}`);
+      }
+    
+      // Only continue if update was successful
+      if (docResponse?.status !== 'success') {
+        throw new Error('Document update failed');
       }
     
       const missingDocs = calculateMissingDocuments(docs, recordProperties);
@@ -714,13 +974,52 @@ const checkForChanges = () => {
         if (!skipRefetch) {
       setShowSuccess(true);
       setTimeout(() => setShowSuccess(false), 3000);
-          await new Promise(resolve => setTimeout(resolve, 3000));
+          // Wait a bit longer to ensure HubSpot has processed the update
+          await new Promise(resolve => setTimeout(resolve, 1000));
+      console.log('[DocumentList] saveDocumentChanges: Refetching document values to verify updates...');
+      
+      // Remember if we were in "autre" tab before refetch
+      const wasInAutreTab = selectedTab === 'autre';
+      const activeTabIdBeforeRefetch = getActiveTabId();
+      
       await fetchDocumentValues();
+      
+      // After refetch, check if documents in "autre" tab should move to main tab
+      // (if they now match conditions after being marked as provided and required)
+      if (wasInAutreTab && activeTabIdBeforeRefetch) {
+        // Wait a bit for state to update after fetchDocumentValues
+        setTimeout(() => {
+          const currentDocs = documents;
+          const currentProps = recordProperties;
+          const activeTabId = getActiveTabId();
+          
+          if (activeTabId) {
+            // Check if any documents now match conditions and should move to main tab
+            const docsThatNowMatch = currentDocs.filter(doc => {
+              if (!documentBelongsToTab(doc, activeTabId)) return false;
+              const conditionsMet = checkDocumentConditions(doc, currentProps);
+              // If document is both required and provided, and conditions are met, move to main tab
+              return conditionsMet && doc.required && doc.provided;
+            });
+            
+            if (docsThatNowMatch.length > 0) {
+              console.log(`[DocumentList] saveDocumentChanges: ${docsThatNowMatch.length} document(s) now match conditions and should be in main tab`);
+              console.log(`[DocumentList] saveDocumentChanges: Documents: ${docsThatNowMatch.map(d => d.name).join(', ')}`);
+              // Switch to main tab to show these documents
+              setSelectedTab(activeTabId);
+            }
+          }
+        }, 100);
+      }
+      
+      console.log('[DocumentList] saveDocumentChanges: Verification complete. Check the fetched values above.');
         }
     } else {
+      console.error('[DocumentList] saveDocumentChanges: Failed to update status properties');
       setError('Error updating status properties');
     }
   } catch (err) {
+    console.error('[DocumentList] saveDocumentChanges: EXCEPTION -', err?.message || err);
     setError(err?.message || 'Error updating documents');
   } finally {
     setSaving(false);
@@ -765,49 +1064,11 @@ useEffect(() => {
     }
   }, [natureDemande]);
 
-  // Auto-update required status when record properties change (conditions may have changed)
-  useEffect(() => {
-    if (Object.keys(recordProperties).length > 0 && initialDocuments.length > 0) {
-      setDocuments(prevDocs => {
-        let hasChanges = false;
-        const updatedDocs = prevDocs.map(doc => {
-          if (doc.conditions && doc.conditions.length > 0) {
-            const conditionsMet = checkDocumentConditions(doc, recordProperties);
-            if (conditionsMet) {
-              if (!doc.required) {
-                hasChanges = true;
-                return { ...doc, required: true };
-              }
-            } else {
-              // Don't auto-update to false - preserve manual control in "autre" tab
-              return doc;
-            }
-          }
-          return doc;
-        });
-      
-        if (hasChanges) {
-          const newCompletionStatus = checkCompletion(updatedDocs);
-          const newDossierState = calculateDossierState(updatedDocs);
-          setIsCompleted(newCompletionStatus);
-          setDossierState(newDossierState);
-        
-          setTimeout(async () => {
-            try {
-              await saveDocumentChanges(updatedDocs, true);
-            } catch (err) {
-              // Silent fail
-            }
-          }, 500);
-        
-          setIsChanged(true);
-          return updatedDocs;
-        }
-      
-        return updatedDocs;
-      });
-    }
-  }, [recordProperties, selectedTab]);
+  // DISABLED: Auto-update required status when record properties change
+  // This was causing infinite loops. Users will need to manually save.
+  // useEffect(() => {
+  //   ... disabled to prevent infinite loops
+  // }, [recordProperties, selectedTab]);
 
 
   const getDossierStateStyle = (state) => {
@@ -858,17 +1119,6 @@ useEffect(() => {
     
     const propValueStr = propertyValue ? String(propertyValue).trim() : '';
     const conditionValue = condition.value.trim();
-    
-    // Debug logging for condition evaluation
-    if (condition.property === 'domicile__') {
-      console.log('[DocumentList] evaluateCondition - domicile__:', {
-        property: condition.property,
-        operator: condition.operator,
-        conditionValue,
-        propValueStr,
-        matches: propValueStr === conditionValue
-      });
-    }
 
     switch (condition.operator) {
       case 'equals':
@@ -925,137 +1175,81 @@ useEffect(() => {
    * Checks if all conditions for a document are met.
    * Logic: Conditions on the same property use OR (any match),
    * conditions on different properties use AND (all groups must match).
+   *
+   * @param doc - The document to check
+   * @param properties - The HubSpot record properties
+   * @param tabId - Optional: specific tab to check conditions for. If not provided, checks all tabs.
    */
-  const checkDocumentConditions = (doc: Document, properties: Record<string, any>): boolean => {
-    if (!doc.conditions || doc.conditions.length === 0) {
+  const checkDocumentConditions = (doc: Document, properties: Record<string, any>, tabId?: string): boolean => {
+    // Get conditions based on whether a specific tab is requested
+    let conditions: DocumentCondition[];
+
+    if (tabId) {
+      // Check conditions for specific tab
+      conditions = getConditionsForTab(doc, tabId);
+    } else {
+      // Check conditions across all tabs (any tab's conditions matching is enough)
+      conditions = getAllConditions(doc);
+    }
+
+    if (!conditions || conditions.length === 0) {
       return true;
     }
 
     const conditionsByProperty = new Map<string, DocumentCondition[]>();
-    
-    doc.conditions.forEach(condition => {
+
+    conditions.forEach(condition => {
       if (!conditionsByProperty.has(condition.property)) {
         conditionsByProperty.set(condition.property, []);
       }
       conditionsByProperty.get(condition.property)!.push(condition);
     });
-    
-    // Debug: log condition evaluation for documents with domicile__ or multiple conditions
-    const hasMultipleProperties = conditionsByProperty.size > 1;
-    const hasDomicileCondition = conditionsByProperty.has('domicile__');
-    
-    if (hasMultipleProperties || hasDomicileCondition) {
-      console.log('[DocumentList] checkDocumentConditions - Document:', doc.name);
-      console.log('[DocumentList] checkDocumentConditions - Conditions by property:', 
-        Array.from(conditionsByProperty.entries()).map(([prop, conds]) => ({
-          property: prop,
-          conditions: conds.map(c => `${c.operator} ${c.value}`),
-          propertyValue: properties[prop]
-        }))
-      );
-    }
-    
-    const allPropertyGroupsMatch = Array.from(conditionsByProperty.entries()).every(([property, conditions]) => {
-      const anyMatches = conditions.some(condition => {
+
+    const allPropertyGroupsMatch = Array.from(conditionsByProperty.entries()).every(([property, propConditions]) => {
+      return propConditions.some(condition => {
         return evaluateCondition(condition, properties);
       });
-      
-      // Debug for domicile__ conditions
-      if (property === 'domicile__' && hasMultipleProperties) {
-        console.log('[DocumentList] checkDocumentConditions - domicile__ group:', {
-          property,
-          propertyValue: properties[property],
-          conditions: conditions.map(c => c.value),
-          anyMatches
-        });
-      }
-      
-      return anyMatches;
     });
-
-    if (hasMultipleProperties || hasDomicileCondition) {
-      console.log('[DocumentList] checkDocumentConditions - Result for', doc.name, ':', allPropertyGroupsMatch);
-    }
 
     return allPropertyGroupsMatch;
   };
 
   /**
    * Determines which tab should be shown based on sous_categorie value.
-   * Finds documents matching the sous_categorie and returns their tab property.
+   * Uses the new tabConfig structure to find matching tabs.
    */
   const getTabForNatureDemande = (natureDemandeValue: string): string | null => {
     if (!natureDemandeValue) {
-      console.log('[DocumentList] getTabForNatureDemande: no value provided');
       return null;
     }
-    
-    // Normalize the value for comparison (trim, normalize whitespace, handle case)
+
+    // Normalize the value for comparison (trim, normalize whitespace)
     const normalize = (str: string): string => {
       return str.trim().replace(/\s+/g, ' ');
     };
     const normalizedValue = normalize(natureDemandeValue);
-    console.log('[DocumentList] getTabForNatureDemande: searching for tab with value:', normalizedValue);
-    
-    // Find documents that have a condition matching this sous_categorie
-    // If a document has multiple tabs, find which tab corresponds to this condition
-    const matchingDocs = DOCUMENTS_CONFIG.filter(doc => {
-      if (!doc.conditions || doc.conditions.length === 0) {
-        return false;
-      }
-      
-      return doc.conditions.some(condition => {
-        return condition.property === 'sous_categorie' && 
-        condition.operator === 'equals' && 
-        normalize(condition.value) === normalizedValue;
-      });
-    });
-    
-    if (matchingDocs.length > 0) {
-      // Find a document that has this condition and belongs to a specific tab
-      // Prefer documents that only have this condition (not multiple conditions)
-      const docWithSingleCondition = matchingDocs.find(doc => {
-        const sousConditions = doc.conditions.filter(c => 
-          c.property === 'sous_categorie' && c.operator === 'equals'
-        );
-        return sousConditions.length === 1;
-      });
-      
-      const docToUse = docWithSingleCondition || matchingDocs[0];
-      console.log('[DocumentList] Found matching document:', docToUse.name, 'with tab:', docToUse.tab);
-      
-      // If document has multiple tabs, try to find which tab corresponds to this condition
-      if (Array.isArray(docToUse.tab) && docToUse.tab.length > 1) {
-        // Check if there's a document that ONLY has this condition and belongs to naturalisation_mariage tab
-        const naturalisationDoc = matchingDocs.find(doc => {
-          const tabs = Array.isArray(doc.tab) ? doc.tab : [doc.tab];
-          return tabs.includes('naturalisation_mariage') && 
-                 !tabs.includes('decret');
+
+    // Search through all documents and their tabConfigs to find matching sous_categorie
+    for (const doc of DOCUMENTS_CONFIG) {
+      if (!doc.tabConfig) continue;
+
+      // Check each tab's conditions
+      for (const [tabId, tabConfig] of Object.entries(doc.tabConfig)) {
+        if (!tabConfig.conditions) continue;
+
+        // Look for a sous_categorie condition that matches
+        const hasMatch = tabConfig.conditions.some(condition => {
+          return condition.property === 'sous_categorie' &&
+            condition.operator === 'equals' &&
+            normalize(condition.value) === normalizedValue;
         });
-        
-        if (naturalisationDoc && normalizedValue.toLowerCase().includes('naturalisation')) {
-          console.log('[DocumentList] getTabForNatureDemande: using naturalisation_mariage tab for naturalisation condition');
-          return 'naturalisation_mariage';
+
+        if (hasMatch) {
+          return tabId;
         }
-        
-        // For "Tronc commun décret", prefer decret tab
-        if (normalizedValue.toLowerCase().includes('décret') || normalizedValue.toLowerCase().includes('decret')) {
-          console.log('[DocumentList] getTabForNatureDemande: using decret tab for décret condition');
-          return 'decret';
-        }
-        
-        // Default to first tab if we can't determine
-        const tab = getTabValue(docToUse.tab);
-        console.log('[DocumentList] getTabForNatureDemande: returning first tab:', tab);
-        return tab;
       }
-      
-      const tab = getTabValue(docToUse.tab);
-      console.log('[DocumentList] getTabForNatureDemande: returning tab:', tab);
-      return tab;
     }
-    
-    console.log('[DocumentList] getTabForNatureDemande: no matching document found');
+
     return null;
   };
 
@@ -1078,62 +1272,71 @@ useEffect(() => {
    * "Autre" tab shows documents from the first tab that don't match conditions.
    */
   const getVisibleDocuments = (): Document[] => {
+    // Safety check: ensure we have the necessary state
+    if (!documents || documents.length === 0) {
+      return [];
+    }
+    
     const activeTabId = getActiveTabId();
-    console.log('[DocumentList] getVisibleDocuments: activeTabId:', activeTabId, 'selectedTab:', selectedTab, 'natureDemande:', natureDemande);
     
     // Ensure sous_categorie is in recordProperties for condition checking
-    const propsForConditions = { ...recordProperties };
+    const propsForConditions = recordProperties ? { ...recordProperties } : {};
     if (natureDemande && !propsForConditions['sous_categorie']) {
       propsForConditions['sous_categorie'] = natureDemande;
     }
     
-    // Debug: log properties being used for condition checking
-    console.log('[DocumentList] getVisibleDocuments: recordProperties keys:', Object.keys(recordProperties));
-    console.log('[DocumentList] getVisibleDocuments: propsForConditions domicile__:', propsForConditions['domicile__']);
-    console.log('[DocumentList] getVisibleDocuments: propsForConditions sous_categorie:', propsForConditions['sous_categorie']);
-    
-    console.log('[DocumentList] getVisibleDocuments: total documents:', documents.length);
     const visible = documents.filter(doc => {
-      const conditionsMet = checkDocumentConditions(doc, propsForConditions);
+      const conditionsMet = checkDocumentConditions(doc, propsForConditions, activeTabId || undefined);
+      
+      // Debug logging for specific document
+      if (doc.id.includes('document_justifiant_de_la_date_et_du_lieu_de_naissance') && 
+          !doc.id.includes('fraterie')) {
+        console.log(`[getVisibleDocuments] Document: "${doc.name}"`);
+        console.log(`[getVisibleDocuments] Tab: ${selectedTab}, ActiveTabId: ${activeTabId}`);
+        console.log(`[getVisibleDocuments] Belongs to active tab: ${activeTabId ? documentBelongsToTab(doc, activeTabId) : 'N/A'}`);
+        console.log(`[getVisibleDocuments] Conditions met: ${conditionsMet}`);
+        console.log(`[getVisibleDocuments] Required: ${doc.required}, Provided: ${doc.provided}`);
+        console.log(`[getVisibleDocuments] sous_categorie: ${propsForConditions['sous_categorie'] || natureDemande || 'NOT SET'}`);
+      }
       
       if (selectedTab === 'autre') {
-        // "Autre" tab: show documents from the active tab that don't match their conditions
-        // User can manage these documents (set as required or remove them) regardless of required status
+        // "Autre" tab shows:
+        // 1. Documents from active tab that don't match conditions
+        // 2. Documents from ANY tab that are required OR provided (may be from different sous_categorie)
+
+        // Case 1: Document is required or provided (from any tab)
+        if (doc.required || doc.provided) {
+          // Don't show if conditions are met AND document belongs to active tab
+          // (it will show in the main tab instead)
+          if (conditionsMet && activeTabId && documentBelongsToTab(doc, activeTabId)) {
+            return false;
+          }
+          // Show in Autre if it's marked but doesn't belong to current tab or conditions not met
+          return true;
+        }
+
+        // Case 2: Document belongs to active tab but conditions not met
         if (!activeTabId) {
           return false;
         }
-        
-        // Document must belong to the active tab
+
         if (!documentBelongsToTab(doc, activeTabId)) {
           return false;
         }
-        
-        // Show if conditions are not met (regardless of required status, so user can manage them)
-        const shouldShow = !conditionsMet;
-        if (shouldShow) {
-          console.log('[DocumentList] Document in autre tab:', doc.name, 'conditionsMet:', conditionsMet, 'required:', doc.required);
-        }
-        return shouldShow;
+
+        return !conditionsMet;
       }
-      
-      // For the active tab: show ONLY documents that match their conditions
-      // Documents that don't match go to "autre" tab, regardless of required status
-      // Use activeTabId if selectedTab matches it, otherwise use selectedTab
+
+      // For the active tab: show documents that match their conditions
+      // OR documents that are required AND provided (completed documents)
       const tabToCheck = (activeTabId && selectedTab === activeTabId) ? activeTabId : selectedTab;
-      
+
       if (!documentBelongsToTab(doc, tabToCheck)) {
         return false;
       }
-      
-      // Show ONLY if conditions are met (not if manually required but conditions don't match)
-      const shouldShow = conditionsMet;
-      if (shouldShow) {
-        console.log('[DocumentList] Document visible:', doc.name, 'tab:', doc.tab, 'tabToCheck:', tabToCheck, 'conditionsMet:', conditionsMet, 'required:', doc.required);
-      } else if (documentBelongsToTab(doc, tabToCheck)) {
-        // Debug: log documents that belong to tab but aren't shown (they should be in "autre")
-        console.log('[DocumentList] Document NOT visible (conditions not met, should be in autre):', doc.name, 'conditions:', doc.conditions);
-      }
-      return shouldShow;
+
+      // Show if conditions are met OR if document is required AND provided
+      return conditionsMet || (doc.required && doc.provided);
     });
     
     const filtered = searchTerm.trim() 
@@ -1158,7 +1361,8 @@ useEffect(() => {
       if (doc.required) {
         return true;
       }
-      if (doc.conditions && doc.conditions.length > 0) {
+      const hasConditions = getAllConditions(doc).length > 0;
+      if (hasConditions) {
         const conditionsMet = checkDocumentConditions(doc, recordProperties);
         return conditionsMet;
       }
@@ -1178,7 +1382,7 @@ useEffect(() => {
   };
 
   const renderDocumentsTable = () => {
-    const visible = getVisibleDocuments();
+    const visible = getVisibleDocuments() || [];
     const progress = calculateProgress(visible);
     
     if (visible.length === 0) {
@@ -1329,8 +1533,9 @@ useEffect(() => {
         </Flex>
         <Divider />
     
-        {visible
+        {(visible || [])
           .sort((a, b) => {
+            if (!a || !b) return 0;
             if (a.required && !b.required) return -1;
             if (!a.required && b.required) return 1;
             
@@ -1342,55 +1547,65 @@ useEffect(() => {
             
             return a.name.localeCompare(b.name);
           })
+          .filter((doc) => doc != null && doc.id) // Filter out any null/undefined docs
           .map((doc) => {
-          const conditionsMet = checkDocumentConditions(doc, recordProperties);
+          if (!doc || !doc.id) return null; // Safety check
           
-          let requiredValue;
-          let isRequiredByCondition = false;
-          
-          if (doc.conditions && doc.conditions.length > 0) {
-            if (conditionsMet) {
-              requiredValue = true;
-              isRequiredByCondition = true;
+          try {
+            const conditionsMet = checkDocumentConditions(doc, recordProperties);
+            const hasConditions = getAllConditions(doc).length > 0;
+
+            let requiredValue;
+            let isRequiredByCondition = false;
+
+            if (hasConditions) {
+              if (conditionsMet) {
+                requiredValue = true;
+                isRequiredByCondition = true;
+              } else {
+                requiredValue = doc.required;
+                isRequiredByCondition = false;
+              }
             } else {
               requiredValue = doc.required;
               isRequiredByCondition = false;
             }
-          } else {
-            requiredValue = doc.required;
-            isRequiredByCondition = false;
+            
+            return (
+            <React.Fragment key={doc.id}>
+            <Flex
+              direction="row"
+              align="center"
+                gap="lg"
+            >
+              <Flex>
+                <Text>{doc.name || 'Unnamed Document'}</Text>
+              </Flex>
+              <Flex justify="center">
+                <Checkbox
+                  key={`req-${doc.id}-${requiredValue}`}
+                  checked={requiredValue === true}
+                  readOnly={isRequiredByCondition}
+                  onChange={isRequiredByCondition ? () => {} : handleCheckboxToggle(doc.id, 'required')}
+                />
+              </Flex>
+              <Flex justify="center">
+                <Checkbox
+                  key={`prov-${doc.id}-${doc.provided}`}
+                  checked={doc.provided === true}
+                  onChange={handleCheckboxToggle(doc.id, 'provided')}
+                />
+              </Flex>
+            </Flex>
+              <Divider />
+            </React.Fragment>
+          );
+          } catch (err) {
+            console.error(`[renderDocumentsTable] Error rendering document ${doc?.id}:`, err);
+            return null;
           }
-          
-          return (
-          <React.Fragment key={doc.id}>
-          <Flex
-            direction="row"
-            align="center"
-              gap="lg"
-          >
-            <Flex>
-              <Text>{doc.name}</Text>
-            </Flex>
-            <Flex justify="center">
-              <Checkbox
-                key={`req-${doc.id}-${requiredValue}`}
-                checked={requiredValue === true}
-                readOnly={isRequiredByCondition}
-                onChange={isRequiredByCondition ? () => {} : handleCheckboxToggle(doc.id, 'required')}
-              />
-            </Flex>
-            <Flex justify="center">
-              <Checkbox
-                key={`prov-${doc.id}-${doc.provided}`}
-                checked={doc.provided === true}
-                onChange={handleCheckboxToggle(doc.id, 'provided')}
-              />
-            </Flex>
-          </Flex>
-            <Divider />
-          </React.Fragment>
-        );
-        })}
+        })
+        .filter((item) => item != null)} {/* Filter out any null returns */}
       </Flex>
     );
   };

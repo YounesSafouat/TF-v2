@@ -1,0 +1,11 @@
+{
+  "name": "hubspot-extension",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "hs": "hs"
+  },
+  "devDependencies": {
+    "@hubspot/cli": "latest"
+  }
+}

@@ -1,0 +1,43 @@
+================================================================================
+DOCUMENT REBUILD SUMMARY
+================================================================================
+
+🔧 FIXES APPLIED:
+1. ✅ Fixed HubSpot property mapping to use French suffixes (" - Requis", " - Fournis")
+2. ✅ Reduced ID truncation from 90 to 85 characters
+3. ✅ Added comprehensive logging throughout rebuild process
+4. ✅ Fixed document names with newlines and EM prefixes
+5. ✅ Merged duplicate documents across tabs
+6. ✅ Merged EM-prefixed child documents
+
+📊 FINAL RESULTS:
+- Total documents: 185
+- All property names: ✅ VALID (<= 100 characters)
+- Longest property name: 99 characters
+
+📋 NATURALISATION MARIAGE ANALYSIS:
+- Total documents: 27
+- Base condition documents: 9 ✅ (as expected!)
+  
+Base condition documents (only sous_categorie = 'Naturalisation par mariage'):
+  [1] Formulaire de demande Cerfa n°15277*04 (86 chars)
+  [2] Timbre fiscal de 55 € (28 chars)
+  [3] Photos d'identité (2 pour le demandeur, 2 pour le conjoint) (65 chars)
+  [4] Copie recto-verso du titre de séjour en cours de validité (65 chars)
+  [5] Document justifiant de la date et du lieu de naissance... (94 chars)
+  [6] Copie intégrale de l'acte de mariage... (94 chars)
+  [7] Original et copie d'un diplôme... (99 chars)
+  [8] Justificatif d'identité du conjoint... (88 chars)
+  [9] Copie intégrale originale de l'acte de naissance du conjoint (93 chars)
+
+✅ VALIDATION STATUS:
+- Property name length limit (100 chars): ✅ PASSED
+- Naturalisation Mariage base documents: ✅ 9 documents (correct)
+- Document structure: ✅ Valid JSON with correct tabConfig
+- Conditions: ✅ Base sous_categorie + question conditions
+
+🚀 DEPLOYMENT:
+- Source: /home/younes/Documents/work/TF v2/documents_new.json
+- Deployed to: /home/younes/Documents/work/TF v2/DocumentList/src/app/extensions/documents.json
+
+================================================================================

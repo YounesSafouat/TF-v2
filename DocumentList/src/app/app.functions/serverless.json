@@ -2,15 +2,36 @@
   "appFunctions": {
     "getDocumentValues": {
       "file": "getDocumentValues.js",
-      "secrets": ["hubspot_api_key", "dossier_j_ID"]
+      "secrets": [
+        "hubspot_api_key",
+        "sandbox_hubspot_api_key",
+        "dossier_j_ID",
+        "sandbox_dossier_j_ID",
+        "dossier_j_NAME",
+        "sandbox_dossier_j_NAME"
+      ]
     },
     "updateDocuments": {
       "file": "updateDocuments.js",
-      "secrets": ["hubspot_api_key", "dossier_j_ID"]
+      "secrets": [
+        "hubspot_api_key",
+        "sandbox_hubspot_api_key",
+        "dossier_j_ID",
+        "sandbox_dossier_j_ID",
+        "dossier_j_NAME",
+        "sandbox_dossier_j_NAME"
+      ]
     },
     "updateCompletionStatus": {
       "file": "updateCompletionStatus.js",
-      "secrets": ["hubspot_api_key", "dossier_j_ID"]
+      "secrets": [
+        "hubspot_api_key",
+        "sandbox_hubspot_api_key",
+        "dossier_j_ID",
+        "sandbox_dossier_j_ID",
+        "dossier_j_NAME",
+        "sandbox_dossier_j_NAME"
+      ]
     }
   }
 }

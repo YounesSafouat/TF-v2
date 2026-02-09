@@ -1,9 +1,45 @@
+# Scripts folder
+scripts/
 
+# Data files in root directory
+*.json
+*.csv
+*.xlsx
+csv/
 
-# HubSpot config file
-hubspot.config.yml
-/node_modules
-package-lock.json
-package.json
-/DocumentList/src/app/app.functions/node_modules
-/DocumentList/src/app/extensions/node_modules
+# Node modules
+node_modules/
+
+# IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+npm-debug.log*
+
+# Environment files
+.env
+.env.local
+
+# Documentation files
+*.md
+README.md
+
+# But keep package.json files (needed for npm)
+!package.json
+!package-lock.json
+!**/package.json
+!**/package-lock.json
+
+# Keep DocumentList extension files (they're in a subdirectory)
+!DocumentList/**/*.json
+!DocumentList/**/*.tsx
+!DocumentList/**/*.js

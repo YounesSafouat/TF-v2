@@ -1,303 +1,120 @@
-/**
- * HubSpot Serverless Function: Get Document Values
- * 
- * Fetches property values from a HubSpot custom object (Dossier Juridique).
- * Returns document status properties (required/provided) and conditional UI properties.
- */
-
 const { Client } = require('@hubspot/api-client');
 
 const conditionalProperties = [
   "sous_categorie",
   "avez_vous_un_statut_refugie_ou_apatride__",
-  "quelle_est_votre_situation_professionnelle__",
+  "quelle_est_votre_situation_professionnel__",
   "quelle_est_votre_situation_familliale",
   "avez_vous_des_enfant_mineur__",
   "domicile__",
-  "percevez_vous_"
+  "percevez_vous_",
+  "quel_est_votre_lien_avec_le_descendant_francais__",
+  "avez_vous_fait_votre_scolarite_formation_en_france__",
+  "quelle_est_votre_situation_professionnel_aes__",
+  "type_d_entree_en_france",
+  "quel_est_votre_lien_avec_le_refugie__",
+  "vous_etes_entree_en_france_en_tant_que__",
+  "revenu_percu_par_letudiant__",
+  "etes_vous_marie_depuis_moins_de_5_ans__",
+  "votre_mariage_a_t_il_ete_celebre_a_l_etranger__",
+  "l_un_des_epoux__ou_les_deux__a_t_il_eu_des_unions_anterieures__",
+  "avez_vous_des_enfants__mineurs_ou_majeurs___",
+  "avez_vous_des_enfants_mineurs_etrangers_residant_avec_vous__",
+  "etes_vous_entre_en_france_il_y_a_moins_de_10_ans__"
 ];
 
-/**
- * Main serverless function entry point.
- * 
- * @param {Object} context - HubSpot serverless function context
- * @param {string[]} context.parameters.propertyNames - Array of property names to fetch
- * @param {boolean} context.parameters.includeCompletion - Whether to include completion status
- * @param {string} context.parameters.hs_object_id - HubSpot object ID
- * @returns {Object} Object with property values keyed by property name
- */
 exports.main = async (context = {}) => {
   try {
-    const objectId = extractObjectId(context);
-    const token = extractAccessToken(context);
-    const { objectTypeId, objectTypeName } = getObjectTypeConfig();
+    const objectId = context.parameters?.hs_object_id
+      || context.propertiesToSend?.hs_object_id
+      || context.recordId
+      || context.hs_object_id;
 
-    validateRequiredParams(objectId, token);
+    const token = context.accessToken
+      || context.secrets?.PRIVATE_APP_ACCESS_TOKEN
+      || context.secrets?.ACCESS_TOKEN
+      || process.env['PRIVATE_APP_ACCESS_TOKEN']
+      || process.env['hubspot_api_key']
+      || process.env['sandbox_hubspot_api_key'];
+
+    const objectTypeId = process.env['dossier_j_ID'] || process.env['sandbox_dossier_j_ID'] || '2-141688426';
+    const objectTypeName = process.env['dossier_j_NAME'] || process.env['sandbox_dossier_j_NAME'] || 'p_dossier_juridique';
+
+    if (!objectId || !token) {
+      return { error: 'Missing object ID or access token' };
+    }
 
     const propertyNames = context.parameters?.propertyNames || [];
     const includeCompletion = context.parameters?.includeCompletion || false;
-    const properties = buildPropertiesList(propertyNames, includeCompletion);
+
+    const properties = propertyNames.length
+      ? [...propertyNames]
+      : ['passport_required', 'passport_provided'];
+
+    if (includeCompletion) {
+      properties.push('documents_completed', 'etat_du_dossier');
+    }
+
+    conditionalProperties.forEach(prop => {
+      if (!properties.includes(prop)) properties.push(prop);
+    });
 
     const hubspotClient = new Client({
       accessToken: token,
-      basePath: 'https://api-eu1.hubspot.com'
+      basePath: 'https://api-eu1.hubapi.com'
     });
 
-    try {
-      const objectResponse = await fetchObjectFromHubSpot(
-        hubspotClient,
-        objectTypeName,
-        objectTypeId,
-        objectId,
-        properties
-      );
+    const BATCH_SIZE = 100;
+    const allProperties = {};
 
-      if (objectResponse?.properties) {
-        return extractPropertyValues(objectResponse.properties, properties);
-      } else {
-        return buildDefaultResponse(properties, 'No properties found in response');
+    const sorted = ['sous_categorie', ...properties.filter(p => p !== 'sous_categorie')];
+
+    for (let i = 0; i < sorted.length; i += BATCH_SIZE) {
+      const batch = sorted.slice(i, i + BATCH_SIZE);
+
+      try {
+        let response;
+        try {
+          response = await hubspotClient.crm.objects.basicApi.getById(objectTypeName, String(objectId), batch);
+        } catch (e) {
+          response = await hubspotClient.crm.objects.basicApi.getById(objectTypeId, String(objectId), batch);
+        }
+
+        if (response?.properties) {
+          Object.assign(allProperties, response.properties);
+        }
+      } catch (err) {
+        if (err.statusCode === 404) {
+          return { error: 'Object not found' };
+        }
+        batch.forEach(prop => { if (!(prop in allProperties)) allProperties[prop] = null; });
       }
-    } catch (apiError) {
-      return handleApiError(apiError, properties);
     }
+
+    const result = {};
+    properties.forEach(prop => {
+      const raw = allProperties[prop];
+      if (prop.includes('_required') || prop.includes('_provided')) {
+        result[prop] = (raw === null || raw === undefined || raw === '') ? 'false' : String(raw);
+      } else {
+        if (raw === null || raw === undefined || raw === '') {
+          result[prop] = '';
+        } else if (Array.isArray(raw)) {
+          result[prop] = raw.join(';');
+        } else if (typeof raw === 'object' && raw.value !== undefined) {
+          result[prop] = Array.isArray(raw.value) ? raw.value.join(';') : String(raw.value);
+        } else {
+          result[prop] = String(raw);
+        }
+      }
+    });
+
+    const status = Object.keys(result).length > 0 ? 'success' : 'empty';
+    console.log(`Documents initialized with status: ${status}`);
+
+    return result;
+
   } catch (error) {
-    console.error('Error in getDocumentValues:', error.message);
     return { error: error.message };
   }
 };
-
-/**
- * Extracts HubSpot object ID from various context sources.
- */
-function extractObjectId(context) {
-    const hs_object_id = context.parameters?.hs_object_id
-      || context.propertiesToSend?.hs_object_id 
-      || context.recordId 
-      || context.hs_object_id;
-  return hs_object_id ? String(hs_object_id) : null;
-}
-
-/**
- * Extracts HubSpot access token from various context sources.
- */
-function extractAccessToken(context) {
-    const token = context.accessToken
-      || context.secrets?.PRIVATE_APP_ACCESS_TOKEN 
-      || context.secrets?.ACCESS_TOKEN
-    || process.env['PRIVATE_APP_ACCESS_TOKEN']
-      || process.env['hubspot_api_key'] 
-      || process.env['sandbox_hubspot_api_key'];
-
-  return token;
-}
-
-/**
- * Gets HubSpot custom object type configuration from environment variables.
- */
-function getObjectTypeConfig() {
-      return { 
-    objectTypeId: process.env['dossier_j_ID'] || process.env['sandbox_dossier_j_ID'] || '2-141688426',
-    objectTypeName: process.env['dossier_j_NAME'] || process.env['sandbox_dossier_j_NAME'] || 'p_dossier_juridique'
-  };
-}
-
-/**
- * Validates that required parameters (objectId and token) are present.
- */
-function validateRequiredParams(objectId, token) {
-    if (!objectId || !token) {
-      console.error(`Missing required data - objectId: ${objectId}, token: ${token ? 'present' : 'missing'}`);
-    throw new Error('Missing object ID or access token');
-  }
-    }
-    
-/**
- * Builds list of properties to fetch, including conditional properties and completion status if requested.
- */
-function buildPropertiesList(propertyNames, includeCompletion) {
-  const defaultProperties = propertyNames.length
-    ? propertyNames
-    : ['passport_required', 'passport_provided', 'residence_proof_required', 'residence_proof_provided'];
-
-  const properties = [...defaultProperties];
-
-    if (includeCompletion) {
-    properties.push('documents_completed', 'etat_du_dossier');
-    }
-    
-  // Add conditional properties from JSON file
-  if (Array.isArray(conditionalProperties)) {
-    conditionalProperties.forEach(prop => {
-      if (!properties.includes(prop)) {
-        properties.push(prop);
-      }
-    });
-  }
-
-  return properties;
-}
-
-/**
- * Fetches object data from HubSpot API.
- * Splits properties into batches to avoid HTTP 414 (URI Too Long) errors.
- * HubSpot API has a limit on URL length, so we fetch in chunks of 100 properties.
- * Prioritizes critical properties like sous_categorie.
- */
-async function fetchObjectFromHubSpot(hubspotClient, objectTypeName, objectTypeId, objectId, properties) {
-  const BATCH_SIZE = 100; // Fetch 100 properties at a time to avoid URL length limits
-  const allProperties = {};
-  
-  // Prioritize critical properties - fetch sous_categorie first if present
-  const criticalProperties = ['sous_categorie'];
-  const otherProperties = properties.filter(p => !criticalProperties.includes(p));
-  const prioritizedProperties = [...criticalProperties.filter(p => properties.includes(p)), ...otherProperties];
-  
-  // Split properties into batches
-  for (let i = 0; i < prioritizedProperties.length; i += BATCH_SIZE) {
-    const batch = prioritizedProperties.slice(i, i + BATCH_SIZE);
-    
-    try {
-      let batchResponse;
-      try {
-        batchResponse = await hubspotClient.crm.objects.basicApi.getById(
-          objectTypeName,
-          objectId,
-          batch
-        );
-      } catch (firstErr) {
-        try {
-          batchResponse = await hubspotClient.crm.objects.basicApi.getById(
-            objectTypeId,
-            objectId,
-            batch
-          );
-        } catch (secondErr) {
-          if (secondErr.statusCode === 404 || secondErr.code === 404) {
-            throw new Error('Object not found');
-          }
-          throw secondErr;
-        }
-      }
-      
-      // Merge batch results
-      if (batchResponse?.properties) {
-        Object.assign(allProperties, batchResponse.properties);
-      }
-    } catch (batchError) {
-      console.error(`Error fetching batch ${i / BATCH_SIZE + 1}:`, batchError.message);
-      // Continue with other batches even if one fails
-      // Set empty values for failed batch
-      batch.forEach(prop => {
-        if (!(prop in allProperties)) {
-          allProperties[prop] = null;
-        }
-      });
-    }
-  }
-  
-  // Return in the same format as the original API response
-  return {
-    properties: allProperties
-  };
-}
-
-/**
- * Extracts and formats property values from HubSpot API response.
- * Formats boolean properties (required/provided) and other property types differently.
- */
-function extractPropertyValues(hubspotProperties, requestedProperties) {
-  const result = {};
-
-  requestedProperties.forEach(prop => {
-    const rawValue = hubspotProperties[prop];
-    
-    // Log sous_categorie for debugging
-    if (prop === 'sous_categorie') {
-      console.log('[getDocumentValues] sous_categorie rawValue:', rawValue, 'type:', typeof rawValue);
-      console.log('[getDocumentValues] All hubspotProperties keys:', Object.keys(hubspotProperties));
-      console.log('[getDocumentValues] Properties containing "nature":', 
-        Object.keys(hubspotProperties).filter(k => k.toLowerCase().includes('nature')));
-    }
-    
-          if (prop.includes('_required') || prop.includes('_provided')) {
-      result[prop] = formatBooleanProperty(rawValue);
-          } else {
-      result[prop] = formatOtherProperty(rawValue);
-          }
-        });
-        
-        return result;
-}
-
-/**
- * Formats boolean properties (required/provided) from HubSpot response.
- * Returns 'false' for null/undefined/empty values.
- */
-function formatBooleanProperty(rawValue) {
-  if (rawValue === null || rawValue === undefined || rawValue === '') {
-    return 'false';
-  }
-  return String(rawValue);
-}
-
-/**
- * Formats other properties (dropdowns, text fields, multiple select) from HubSpot response.
- * HubSpot multiple select fields are returned as semicolon-separated strings.
- */
-function formatOtherProperty(rawValue) {
-  if (rawValue === null || rawValue === undefined || rawValue === '') {
-    return '';
-  }
-  
-  if (typeof rawValue === 'string') {
-    return rawValue;
-  }
-  
-  if (Array.isArray(rawValue)) {
-    return rawValue.join(';');
-  }
-  
-  if (typeof rawValue === 'object' && rawValue.value !== undefined) {
-    const value = rawValue.value;
-    if (typeof value === 'string') {
-      return value;
-    }
-    if (Array.isArray(value)) {
-      return value.join(';');
-    }
-    return String(value);
-  }
-  
-  return String(rawValue);
-}
-
-/**
- * Builds default response with empty/false values when properties are not found.
- */
-function buildDefaultResponse(properties, errorMessage) {
-  const result = { error: errorMessage };
-        properties.forEach(prop => {
-          if (prop.includes('_required') || prop.includes('_provided')) {
-      result[prop] = 'false';
-    } else {
-      result[prop] = '';
-    }
-  });
-  return result;
-}
-
-/**
- * Handles API errors and returns formatted error response with default values.
- */
-function handleApiError(apiError, properties) {
-      const statusCode = apiError.statusCode || apiError.code;
-      const errorBody = apiError.body || apiError.response?.body || '';
-      const errorMessage = apiError.message || 'Unknown error';
-      
-      let formattedError = `API error: HTTP-Code: ${statusCode || 'Unknown'}\nMessage: ${errorMessage}`;
-      if (errorBody) {
-          formattedError += `\nBody: ${JSON.stringify(errorBody)}`;
-      }
-      
-  return buildDefaultResponse(properties, formattedError);
-}
