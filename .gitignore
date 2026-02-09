@@ -29,6 +29,9 @@ npm-debug.log*
 .env
 .env.local
 
+# HubSpot config with secrets
+hubspot.config.yml
+
 # Documentation files
 *.md
 README.md
